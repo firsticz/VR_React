@@ -1,0 +1,78 @@
+.group_img{
+  width: 100%;
+  height: auto;
+}
+
+.row_two{
+ padding-top: 20px;
+}
+
+.group{
+  margin-top: 10px;
+}
+
+
+.banner_img{
+  width:100%;
+  height: auto;
+ 
+}
+.banner{
+position: relative;
+display: block;
+overflow: hidden;
+}
+.event_row{
+margin-top: 20px;
+}
+
+#overlay{
+  display: block;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:auto; /* Half of the container */
+  line-height:200px;
+  background-color:rgba(5, 5, 5, 0.808);
+  color: floralwhite;
+  padding-left: 50px;
+}
+
+.banner:hover #overlay{
+  display:block;
+}
+
+.event_img{
+  width: 100%;
+}
+.icon_profile_img{
+ width: 10%;
+
+}
+
+.table td{
+ padding-left: 0px;
+ padding-right: 0px;
+}
+h3{
+margin-top: 20px;  
+}
+Table{
+margin-top: 20px;  
+}
+.at{
+ display: inline;
+ float: right;
+}
+.icon_map_img{
+width: 40%;
+display: inline-block;
+}
+.activity_list{
+ margin-top: 20px;
+}
+.kan_list{
+ width: 100%;
+ height: 2px;
+ background-color: dodgerblue;
+}
