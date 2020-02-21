@@ -37,5 +37,42 @@ class Firebase {
       this.auth.onAuthStateChanged(resolve)
     })
   }
+
+  // merge Auth and DB User API //
+  onAuthUserListener(next, fallback) {
+    return this.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        this.user(authUser.uid)
+          .get()
+          .then(snapshot => {
+            const dbUser = snapshot.data();
+
+            // default empty roles
+            if (!dbUser.roles) {
+              dbUser.roles = {};
+            }
+
+            // merge auth and db user
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              providerData: authUser.providerData,
+              ...dbUser,
+            };
+
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
+  }
+
+  // *** User API ***
+
+  user = uid => this.db.doc(`users/${uid}`);
+
+  users = () => this.db.collection('users');
 }
 export default new Firebase()
