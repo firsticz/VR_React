@@ -12,7 +12,7 @@ const Login = (props) =>{
       
       <Row className="justify-content-md-center">
         <Col md="auto">
-          <div style={{marginTop:'100px'}}>
+          <div style={{marginTop:'200px'}}>
           <Form style={{backgroundColor:'#404040',padding:'30px'}}>
             <div>  
               <a href="http://localhost:4500/auth/strava" class="button" >
