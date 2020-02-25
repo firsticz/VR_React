@@ -1,6 +1,14 @@
+import { ApolloProvider } from 'react-apollo'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter, Route, Switch, Redirect,
+} from 'react-router-dom'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { HttpLink } from 'apollo-link-http'
+import { onError } from 'apollo-link-error'
+import { ApolloLink } from 'apollo-link'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
@@ -8,32 +16,66 @@ import * as serviceWorker from './serviceWorker';
 import Group from './page/Group'
 import GroupDetail from './page/GroupDetail'
 import Login from './page/Login'
+import setPassword from './page/EditPassword'
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
+
 // ReactDOM.render(<App />, document.getElementById('root'));
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_TRACKING_GRAPHQL_CLIENT,
+  link: ApolloLink.from([
+    onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors) {
+        console.error({ graphQLErrors })
+      }
+      if (networkError) {
+        console.error({ networkError })
+        // if (networkError.statusCode === 401) {
+        //   removeToken()
+        // }
+      }
+    }),
+    // authMiddleware,
+    new HttpLink({
+      uri: process.env.REACT_APP_GRAPHQL_SERVER,
+    }),
+  ]),
+  cache: new InMemoryCache(),
+})
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route path="/group/:id/:eventid" component={GroupDetail} />
-      <Route path="/group/:id" component={GroupDetail} />
-      <Route path="/group" component={Group} />
-      <Route path="/rank" component={Group} />
-      <Route path="/login" component={Login} />
-			<Route path="/" component={App} />
-      
-      {/* <Route path="*" component={App} /> */}
-      {/* <Route render ={()=> < Group />} path="/group" />
-      <Route render ={()=> < App />} path="/" /> */}
-          {/* <Route render ={()=> < List />} path="/list" />
-          <Route render ={()=> < Edit />} path="/edit/:id" />
-          <Route render ={()=> < Create />} path="/create" />
-          <Route render ={()=> < Show />} path="/show/:id" /> */}
-    </Switch>
-    <NotificationContainer/>
-  </Router>, document.getElementById('root'));
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <Switch>
+        <Route path="/group/:id/:eventid" component={GroupDetail} />
+        <Route path="/group/:id" component={GroupDetail} />
+        <Route path="/group" component={Group} />
+        <Route path="/rank" component={Group} />
+        <Route path="/login" component={Login} />
+        <Route path="/callback" component={setPassword} />
+ 			  <Route path="/" component={App} />
+        {/* <AuthProvider>
+          <Route path="/" component={App} />
+        </AuthProvider> */}
+      </Switch>
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+    </ApolloProvider>
+  </BrowserRouter>,
+  document.getElementById('root'),
+)
+// ReactDOM.render(
+//   <Router>
+//     <Switch>
+//       <Route path="/group/:id/:eventid" component={GroupDetail} />
+//       <Route path="/group/:id" component={GroupDetail} />
+//       <Route path="/group" component={Group} />
+//       <Route path="/rank" component={Group} />
+//       <Route path="/login" component={Login} />
+//       <Route path="/callback" component={setPassword} />
+// 			<Route path="/" component={App} />
+    
+//     </Switch>
+//     <NotificationContainer/>
+//   </Router>, document.getElementById('root'));
+
 serviceWorker.unregister();
