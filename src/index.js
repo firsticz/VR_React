@@ -30,9 +30,6 @@ const client = new ApolloClient({
       }
       if (networkError) {
         console.error({ networkError })
-        // if (networkError.statusCode === 401) {
-        //   removeToken()
-        // }
       }
     }),
     // authMiddleware,
