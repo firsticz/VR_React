@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container'
 import Navbar from '../component/Navbar'
 import '../group.css'
 import { Link } from 'react-router-dom'
-import Check from '../handle/check'
 import { NotificationManager } from 'react-notifications'
 
 const Group = props =>{
@@ -39,8 +38,7 @@ const Group = props =>{
 
   return(
     <div>
-      <Check/>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Container>
         {showLoading && <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>

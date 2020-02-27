@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container'
 import Navbar from '../component/Navbar'
 import '../group.css'
 import { Link } from 'react-router-dom'
-import Check from '../handle/check'
 import moment from 'moment'
 import { NotificationManager } from 'react-notifications'
 
@@ -94,8 +93,7 @@ const GroupDetail = props => {
   return (
     <div>
       { console.log(eventActivityState)}
-      <Check/>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Container bsPrefix="container contain">
       {showLoading && <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>

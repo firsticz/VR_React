@@ -45,10 +45,10 @@ ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <Switch>
-        <Route path="/group/:id/:eventid" component={GroupDetail} />
+        {/* <Route path="/group/:id/:eventid" component={GroupDetail} />
         <Route path="/group/:id" component={GroupDetail} />
         <Route path="/group" component={Group} />
-        <Route path="/rank" component={Group} />
+        <Route path="/rank" component={Group} /> */}
         <Route path="/login" component={Login} />
         <Route path="/callback" component={setPassword} />
  			  {/* <Route path="/" component={App} /> */}
