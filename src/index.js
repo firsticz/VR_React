@@ -19,6 +19,7 @@ import Login from './page/Login'
 import setPassword from './page/EditPassword'
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
+import { AuthProvider, checkTokenExpired } from './context/AuthContext'
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 const client = new ApolloClient({
@@ -50,10 +51,10 @@ ReactDOM.render(
         <Route path="/rank" component={Group} />
         <Route path="/login" component={Login} />
         <Route path="/callback" component={setPassword} />
- 			  <Route path="/" component={App} />
-        {/* <AuthProvider>
+ 			  {/* <Route path="/" component={App} /> */}
+        <AuthProvider>
           <Route path="/" component={App} />
-        </AuthProvider> */}
+        </AuthProvider>
       </Switch>
 
     </ApolloProvider>
