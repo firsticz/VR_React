@@ -8,8 +8,10 @@ import { Button, Form, Row, Col} from 'react-bootstrap';
 import setPasswordMutation from '../graphql/mutations/setPassword'
 
 const EditPassword = (props) => {
+  const { history } = props
   const [userid, setUserid] = useState(0)
   const [password, setPass] = useState('')
+  const [username, setUsername] = useState('')
   const [status, setStatus] = useState(true)
   const query = queryString.parse(window.location.search);
   if (query.token) {
@@ -28,15 +30,19 @@ const EditPassword = (props) => {
       <Row className="justify-content-md-center">
         <Col md="auto">
           <div style={{marginTop:'50%'}}>
-          <Form style={{backgroundColor:'#404040',padding:'30px'}}>
+          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.8)', padding:'30px'}}>
             <Form.Group controlId="formBasicEmail">
-         
               <Form.Label>userid</Form.Label>
               <Form.Control type="text" value={userid} disabled />
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword" style={{marginTop:'-20px'}}>
-              <Form.Label></Form.Label>
+            <Form.Group controlId="username">
+              <Form.Label>username</Form.Label>
+              <Form.Control type="text" placeholder="Enter Username" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setUsername(x.currentTarget.value) } } />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>password</Form.Label>
               <Form.Control type="password" placeholder="Enter Password" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setPass(x.currentTarget.value) } } />
             </Form.Group>
 
@@ -46,10 +52,11 @@ const EditPassword = (props) => {
               try {
                 await setPassword({
                   variables: {
-                    id: userid, password: password
+                    id: userid, password: password, username: username
                   },
                 })
                 alert('success')
+                history.push('/')
               } catch (err) {
                 console.log(err)
               }

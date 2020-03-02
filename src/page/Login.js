@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types'
 import { useMutation } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
-import { Button, Form, Row, Col} from 'react-bootstrap';
+import { Button, Form, Row, Col, Alert} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import '../group.css'
 import { Link } from 'react-router-dom'
@@ -13,7 +13,9 @@ const Login = (props) => {
   const { history } = props
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
-  const [login, { data, loading }] = useMutation(loginMutation)
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('');
+  const [login, { data, loading }, error] = useMutation(loginMutation)
   const { setToken } = useContext(AuthContext)
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,9 +31,17 @@ const Login = (props) => {
         // this.setState({ open: true, message: 'ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ในขณะนี้' })
       } else if (gqlError) {
         // this.setState({ open: true, message: gqlError.message })
+        console.log(gqlError.message)
+        setMessage(gqlError.message)
+        setShow(true)
       }
     }
   }
+  // if(show){
+  //   return (
+      
+  //   )
+  // }
 
   return (
     <Container>
@@ -66,9 +76,14 @@ const Login = (props) => {
               />
             </Form.Group>
             <Button variant="primary" type="submit" style={{width:'100%'}} onClick={handleSubmit}>
-              Submit
+              Login
             </Button>
           </Form>
+          {show=== true ? (
+            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+              {message}
+            </Alert>):null
+          }
 
           </div>
           
