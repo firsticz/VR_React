@@ -62,7 +62,7 @@ const Login = (props) => {
               <Form.Label></Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter usernamae"
+                placeholder="Username"
                 onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setUsername(x.currentTarget.value) } }
               />
             </Form.Group>
