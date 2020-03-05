@@ -14,7 +14,7 @@ const Bar = () =>{
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/group">Group</Nav.Link>
-        <Nav.Link href="/create">Rank</Nav.Link>
+        <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
       </Nav>
       <Nav.Link href="#" onClick={removetoken}>Sign Out</Nav.Link>
     </Navbar.Collapse>
