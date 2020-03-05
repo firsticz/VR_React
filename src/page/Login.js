@@ -51,7 +51,7 @@ const Login = (props) => {
           <div style={{marginTop:'50%'}}>
           <Form style={{backgroundColor:'#404040',padding:'30px'}}>
             <div>  
-              <a href="http://localhost:4500/auth/strava" class="button" >
+              <a href="http://localhost:5001/strava-connect/us-central1/app/auth/strava" class="button" >
                   <img alt="connect" src="/images/stravaconnect.png"  style={{width:'100%'}}/>
               </a>
             </div>
