@@ -15,6 +15,7 @@ const Bar = () =>{
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/group">Group</Nav.Link>
         <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+        <Nav.Link href="/activity">Activity</Nav.Link>
       </Nav>
       <Nav.Link href="#" onClick={removetoken}>Sign Out</Nav.Link>
     </Navbar.Collapse>

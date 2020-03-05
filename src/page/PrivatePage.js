@@ -9,6 +9,7 @@ import Navbar from '../component/Navbar'
 import GroupDetail from './GroupDetail'
 import Group from './Group'
 import LeaderBoard from './LeaderBoard'
+import Activity from './Activity'
 
 const PrivatePage = (props) => {
   const { user, removeToken } = useContext(AuthContext)
@@ -23,6 +24,7 @@ const PrivatePage = (props) => {
           <PrivateRoute path="/group/:id/:eventid" component={GroupDetail} />
           <PrivateRoute path="/group/:id" component={GroupDetail} />
           <PrivateRoute path="/group" component={Group} />
+          <PrivateRoute path="/activity" component={Activity} />
         </Switch>
     </div>
   )
