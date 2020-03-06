@@ -9,20 +9,22 @@ import Navbar from '../component/Navbar'
 import GroupDetail from './GroupDetail'
 import Group from './Group'
 import LeaderBoard from './LeaderBoard'
+import Activity from './Activity'
 
 const PrivatePage = (props) => {
   const { user, removeToken } = useContext(AuthContext)
 
   return (
-    <div>
+    <div style={{backgroundImage:`url(${process.env.PUBLIC_URL }/images/backgroud.jpg`,width:'100%',height:'608px',}}>
       <Navbar/>
-        <p>{user.id}</p>
-        <p>{user.accesstoken}</p>
+        {/* <p>{user.id}</p>
+        <p>{user.accesstoken}</p> */}
         <Switch>
           <PrivateRoute path="/leaderboard" component={LeaderBoard} />
           <PrivateRoute path="/group/:id/:eventid" component={GroupDetail} />
           <PrivateRoute path="/group/:id" component={GroupDetail} />
           <PrivateRoute path="/group" component={Group} />
+          <PrivateRoute path="/activity" component={Activity} />
         </Switch>
     </div>
   )
