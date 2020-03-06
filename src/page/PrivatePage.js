@@ -15,10 +15,10 @@ const PrivatePage = (props) => {
   const { user, removeToken } = useContext(AuthContext)
 
   return (
-    <div>
+    <div style={{backgroundImage:`url(${process.env.PUBLIC_URL }/images/backgroud.jpg`,width:'100%',height:'608px',}}>
       <Navbar/>
-        <p>{user.id}</p>
-        <p>{user.accesstoken}</p>
+        {/* <p>{user.id}</p>
+        <p>{user.accesstoken}</p> */}
         <Switch>
           <PrivateRoute path="/leaderboard" component={LeaderBoard} />
           <PrivateRoute path="/group/:id/:eventid" component={GroupDetail} />
