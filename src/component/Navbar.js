@@ -8,7 +8,7 @@ function removetoken(){
 const Bar = () =>{
   return (
     <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="#"><img style={{width:'80px'}} src="/images/logothairun-(blue).png"/></Navbar.Brand>
+    <Navbar.Brand href="/"><img style={{width:'80px'}} src="/images/logothairun-(blue).png"/></Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
