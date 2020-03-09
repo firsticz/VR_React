@@ -3,8 +3,9 @@ import 'react-vertical-timeline-component/style.min.css'
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import Container from 'react-bootstrap/Container'
-import { Table, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import getMyActivity from '../graphql/queries/getMyActivity'
+import moment from 'moment'
 
 const Activity = (props) => {
   const [ showLoading, setShowLoading ] = useState(true);
@@ -56,7 +57,7 @@ const Activity = (props) => {
                 className="vertical-timeline-element--work"
                 contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                 contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                date={item.start_date}
+                date={moment(item.start_date).format('MM/DD/YYYY, h:mm:ss a')}
                 iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
               >
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>
