@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from 'react-apollo'
 import queryString from 'query-string'
 import Container from 'react-bootstrap/Container'
-import { Button, Form, Row, Col} from 'react-bootstrap';
+import { Button, Form, Row, Col, Alert} from 'react-bootstrap';
 
 import setPasswordMutation from '../graphql/mutations/setPassword'
 
@@ -12,6 +12,8 @@ const EditPassword = (props) => {
   const [password, setPass] = useState('')
   const [username, setUsername] = useState('')
   const [status, setStatus] = useState(true)
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('');
   const query = queryString.parse(window.location.search);
   if (query.token) {
     window.sessionStorage.setItem("jwt", query.token);
@@ -58,12 +60,26 @@ const EditPassword = (props) => {
                 history.push('/')
               } catch (err) {
                 console.log(err)
+                const { networkError, graphQLErrors: [gqlError] } = err
+                if (networkError) {
+                  // this.setState({ open: true, message: 'ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ในขณะนี้' })
+                } else if (gqlError) {
+                  // this.setState({ open: true, message: gqlError.message })
+                  console.log(gqlError.message)
+                  setMessage(gqlError.message)
+                  setShow(true)
+                }
               }
             }}
             >
               Submit
             </Button>
           </Form>
+          {show=== true ? (
+            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+              {message}
+            </Alert>):null
+          }
 
           </div>
           
