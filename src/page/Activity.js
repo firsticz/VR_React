@@ -1,3 +1,5 @@
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component'
+import 'react-vertical-timeline-component/style.min.css'
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import Container from 'react-bootstrap/Container'
@@ -12,7 +14,7 @@ const Activity = (props) => {
   },[])
   return(
     <Container>
-      <div>
+      {/* <div>
         {loading?(
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
@@ -39,6 +41,34 @@ const Activity = (props) => {
             </tbody>
           </Table>
         )}
+      </div> */}
+      <div>
+      <VerticalTimeline>
+        {
+          loading?(
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          ):(
+            data.activityMany.map((item, index)=>(
+              <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date={item.start_date}
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              >
+                <h3 className="vertical-timeline-element-title">{item.name}</h3>
+                <h4 className="vertical-timeline-element-subtitle">test</h4>
+                <p>
+                  distance : {Number(item.distance / 1000 ).toFixed(2)} km.
+                </p>
+              </VerticalTimelineElement>
+            ))
+            
+          )
+        }
+      </VerticalTimeline>
       </div>
     </Container>
   )
