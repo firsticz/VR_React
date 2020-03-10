@@ -15,7 +15,13 @@ const PrivatePage = (props) => {
   const { user, removeToken } = useContext(AuthContext)
 
   return (
-    <div style={{backgroundImage:`url(${process.env.PUBLIC_URL }/images/backgroud.jpg`,width:'100%',height:'608px',}}>
+    <div style={{
+      backgroundImage:`url(${process.env.PUBLIC_URL }/images/backgroud.jpg`,
+      width:'100%',
+      height:'100vh',
+      display: 'block',
+      overflowY: 'scroll'
+    }}>
       <Navbar/>
         {/* <p>{user.id}</p>
         <p>{user.accesstoken}</p> */}
