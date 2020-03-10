@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container'
 import { Spinner } from 'react-bootstrap'
 import getMyActivity from '../graphql/queries/getMyActivity'
 import moment from 'moment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRunning } from '@fortawesome/free-solid-svg-icons'
 
 const Activity = (props) => {
   const [ showLoading, setShowLoading ] = useState(true);
@@ -59,6 +61,7 @@ const Activity = (props) => {
                 contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
                 date={moment(item.start_date).format('MM/DD/YYYY, h:mm:ss a')}
                 iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                icon={<FontAwesomeIcon icon={faRunning} />}
               >
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>
                 <h4 className="vertical-timeline-element-subtitle">test</h4>
