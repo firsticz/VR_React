@@ -53,7 +53,7 @@ const EditPassword = (props) => {
               try {
                 await setPassword({
                   variables: {
-                    id: userid, password: password, username: username
+                    id: userid, password: password, username: username, token: query.token
                   },
                 })
                 alert('success')

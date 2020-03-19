@@ -1,6 +1,6 @@
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useQuery } from 'react-apollo'
 import Container from 'react-bootstrap/Container'
 import { Spinner } from 'react-bootstrap'
@@ -8,10 +8,17 @@ import getMyActivity from '../graphql/queries/getMyActivity'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRunning } from '@fortawesome/free-solid-svg-icons'
+import AuthContext from '../context/AuthContext'
 
 const Activity = (props) => {
   const [ showLoading, setShowLoading ] = useState(true);
-  const { data = { activityMany: []}, loading } = useQuery(getMyActivity)
+  const { user } = useContext(AuthContext)
+  const { data = { activityMany: []}, loading } = useQuery(getMyActivity, {
+    variables:{
+      id: Number(user.id)
+    }
+  })
+  console.log(user.id)
   useEffect(()=>{
     setShowLoading(false);
   },[])

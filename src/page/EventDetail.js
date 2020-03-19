@@ -15,6 +15,19 @@ const EventDetail = props => {
   return (
     <Container>
       {console.log(data)}
+      {loading?(
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      ):(
+        data.activityhasevent.map((item, index)=>(
+        <p>{item.activities.map((items,i)=>(
+          <li>
+            {items._id}
+          </li>
+        ))}</p>
+        ))
+      )}
     </Container>
   )
 }
