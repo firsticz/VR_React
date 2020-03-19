@@ -13,7 +13,7 @@ import AuthContext from '../context/AuthContext'
 const Activity = (props) => {
   const [ showLoading, setShowLoading ] = useState(true);
   const { user } = useContext(AuthContext)
-  const { data = { activityMany: []}, loading } = useQuery(getMyActivity, {
+  const { data = { getActivity: []}, loading } = useQuery(getMyActivity, {
     variables:{
       id: Number(user.id)
     }
@@ -60,7 +60,7 @@ const Activity = (props) => {
               <span className="sr-only">Loading...</span>
             </Spinner>
           ):(
-            data.activityMany.map((item, index)=>(
+            data.getActivity.map((item, index)=>(
               <VerticalTimelineElement
                 key={index}
                 className="vertical-timeline-element--work"

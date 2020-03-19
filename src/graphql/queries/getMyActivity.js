@@ -1,12 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-query($id: Float){
-  activityMany(filter:{
-    athlete:{
-      id: $id
-    }
-  }){
+query($id: Int){
+  getActivity(userid: $id){
     id
     name
     distance
