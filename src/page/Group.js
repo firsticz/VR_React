@@ -1,72 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
-import { Spinner, Button, Row, Col} from 'react-bootstrap';
+import React from 'react';
+import { useQuery } from 'react-apollo'
+import { Spinner, Button, Row, Col, Card} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
-import Navbar from '../component/Navbar'
-import '../group.css'
 import { Link } from 'react-router-dom'
-import { NotificationManager } from 'react-notifications'
+import moment from 'moment'
+import getGroup from '../graphql/queries/getGroup' 
 
-const Group = props =>{
-  const [groupState, setGroupState] = useState([]);
-  const [showLoading, setShowLoading] = useState(true);
-  // const [ isShowingAlert, setisShowingAlert ] = useState(false);
-  
+const Group = (props) => {
+  const { data = { groupMany: []}, loading } = useQuery(getGroup)
 
-  useEffect(() => {
-    setShowLoading(false);
-    const fetchData = async () => {
-      const result = await axios.get('http://localhost:4500/group/getgroup');
-      setGroupState(result.data);
-      setShowLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  const handlejoingroup = (groupid, event) => {
-    event.preventDefault();
-    const userid = window.sessionStorage.getItem("id");
-    axios.put('http://localhost:4500/group/joingroup/'+userid+'/'+groupid).then(response =>{
-      NotificationManager.success('You Join Event Sucess', 'Successful!', 2000);
-    }).catch(err => {
-      NotificationManager.error('Error Join Event', 'Error!');
-    })
-    
-  }
-
+  // useEffect(()=>{
+  //   setShowLoading(false)
+  // },[])
 
   return(
-    <div>
-      {/* <Navbar/> */}
-      <Container>
-        {showLoading && <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner> }
-        <Row className='row_two'>
-        {groupState.map((d,i) => 
-         <Col xs={6} md={3} key={i}>
-            <div className="group">
-              <img src='/images/logo.png' className='group_img' alt="grouppic"></img>
-              <div>
-                <Link to={`/group/${d.id}`}>{d.name}</Link>
-              </div>
-              <div>
-                    {d.discription}
-              </div>
-              <Button variant="primary" onClick={(e) => handlejoingroup(d.id, e)}>Join</Button>
-            </div>
-          </Col>
-        )}
-        </Row>        
+    <Container>
+      <Row>
+        {loading?(
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        ):(
           
+          data.groupMany.map((item, index)=>(
+            // <Link to={`/event/${item.groupId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
+              <Col xs={12} md={4} style={{paddingTop:'50px'}}>
+                <Card style={{ width: '18rem' }} >
+                  <Card.Img variant="top" src="/images/1.jpg" />
+                  <Card.Body>
+                    <Card.Title>{item.name}</Card.Title>
+                    {/* <Card.Text>
+                      {moment(item.start_date).format('YYYY/MM/DD') +' - ' + moment(item.end_date).format('YYYY/MM/DD')}
+                    </Card.Text>  */}
+                    <Button variant="primary">Go somewhere</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            // </Link>
+            
+          ))
+        )}
         
-      
-      </Container>
-      
-      
-    </div>
+      </Row>
+    </Container>
   )
+
 }
 
-export default Group;
+export default Group

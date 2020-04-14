@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery } from 'react-apollo'
-import { Spinner, Jumbotron, Button, Row, Col, Card} from 'react-bootstrap';
+import { Spinner, Button, Row, Col, Card} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import { Link } from 'react-router-dom'
 import getEvent from '../graphql/queries/getEvent'
 import moment from 'moment'
+
 
 
 

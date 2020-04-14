@@ -18,7 +18,6 @@ const Activity = (props) => {
       id: Number(user.id)
     }
   })
-  console.log(user.id)
   useEffect(()=>{
     setShowLoading(false);
   },[])

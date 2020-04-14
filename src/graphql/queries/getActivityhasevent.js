@@ -18,6 +18,11 @@ query($eventId: Float){
       start_date
       name
     }
+    profile{
+      username
+      firstname
+      lastname
+    }
     
   }
 }

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 import queryString from 'query-string'
 import Container from 'react-bootstrap/Container'
 import { Button, Form, Row, Col, Alert} from 'react-bootstrap';
 
 import setPasswordMutation from '../graphql/mutations/setPassword'
+import getGroup from '../graphql/queries/getGroup'
 
 const EditPassword = (props) => {
   const { history } = props
   const [userid, setUserid] = useState(0)
   const [password, setPass] = useState('')
   const [username, setUsername] = useState('')
+  const [groupid, setGroupid] = useState('')
   const [status, setStatus] = useState(true)
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState('');
@@ -23,7 +25,8 @@ const EditPassword = (props) => {
       setStatus(false)
     }
   }
-  const [setPassword, { data, loading }] = useMutation(setPasswordMutation)
+  const [setPassword] = useMutation(setPasswordMutation)
+  const { data = { groupMany: []}, loading } = useQuery(getGroup)
   if(window.sessionStorage.getItem("jwt")){
     return (
       <Container>
@@ -46,6 +49,16 @@ const EditPassword = (props) => {
               <Form.Label>password</Form.Label>
               <Form.Control type="password" placeholder="Enter Password" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setPass(x.currentTarget.value) } } />
             </Form.Group>
+            <Form.Group controlId="group">
+              <Form.Label>Team</Form.Label>
+              <Form.Control as="select" onChange={ (x: React.FormEvent<FormControl & HTMLOptionElement>) => { setGroupid(x.currentTarget.value) } } >
+                <option value="">" "</option>
+                {data.groupMany.map((e, i)=>(
+                  <option value={e.groupId}>{e.name}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            
 
             <Button variant="primary" type="submit" style={{width:'100%'}}
             onClick={async (e) => {
@@ -53,7 +66,11 @@ const EditPassword = (props) => {
               try {
                 await setPassword({
                   variables: {
-                    id: userid, password: password, username: username, token: query.token
+                    id: userid, 
+                    password: password, 
+                    username: username, 
+                    token: query.token, 
+                    groupid:groupid,
                   },
                 })
                 alert('success')
