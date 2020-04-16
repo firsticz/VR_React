@@ -8,6 +8,7 @@ query{
     NameEN
     start_date
     end_date
+    member
   }
 }
 `

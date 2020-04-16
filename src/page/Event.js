@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery } from 'react-apollo'
-import { Spinner, Button, Row, Col, Card} from 'react-bootstrap';
+import { Spinner, Button, Row, Col, Card, Modal } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import { Link } from 'react-router-dom'
 import getEvent from '../graphql/queries/getEvent'
+import AuthContext from '../context/AuthContext'
 import moment from 'moment'
 
 
@@ -11,10 +12,8 @@ import moment from 'moment'
 
 const Event = props => {
   const { data = { eventMany: []}, loading } = useQuery(getEvent)
+  const { user } = useContext(AuthContext)
 
-  // useEffect(()=>{
-  //   setShowLoading(false)
-  // },[])
 
   return(
     <Container>
@@ -35,7 +34,7 @@ const Event = props => {
                     <Card.Text>
                       {moment(item.start_date).format('YYYY/MM/DD') +' - ' + moment(item.end_date).format('YYYY/MM/DD')}
                     </Card.Text> 
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary" disabled={item.member.find(ele => ele === user.id) !== undefined}>สมัคร</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -45,6 +44,7 @@ const Event = props => {
         )}
         
       </Row>
+
     </Container>
   )
 
