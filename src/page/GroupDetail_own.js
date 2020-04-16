@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'
 import { Spinner, Button,Row, Col, Tab, Tabs, Table } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
-import Navbar from '../component/Navbar'
 import '../group.css'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { NotificationManager } from 'react-notifications'
 

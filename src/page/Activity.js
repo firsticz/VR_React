@@ -1,15 +1,23 @@
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useQuery } from 'react-apollo'
 import Container from 'react-bootstrap/Container'
 import { Spinner } from 'react-bootstrap'
 import getMyActivity from '../graphql/queries/getMyActivity'
 import moment from 'moment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRunning } from '@fortawesome/free-solid-svg-icons'
+import AuthContext from '../context/AuthContext'
 
 const Activity = (props) => {
   const [ showLoading, setShowLoading ] = useState(true);
-  const { data = { activityMany: []}, loading } = useQuery(getMyActivity)
+  const { user } = useContext(AuthContext)
+  const { data = { getActivity: []}, loading } = useQuery(getMyActivity, {
+    variables:{
+      id: Number(user.id)
+    }
+  })
   useEffect(()=>{
     setShowLoading(false);
   },[])
@@ -51,7 +59,7 @@ const Activity = (props) => {
               <span className="sr-only">Loading...</span>
             </Spinner>
           ):(
-            data.activityMany.map((item, index)=>(
+            data.getActivity.map((item, index)=>(
               <VerticalTimelineElement
                 key={index}
                 className="vertical-timeline-element--work"
@@ -59,6 +67,7 @@ const Activity = (props) => {
                 contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
                 date={moment(item.start_date).format('MM/DD/YYYY, h:mm:ss a')}
                 iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                icon={<FontAwesomeIcon icon={faRunning} />}
               >
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>
                 <h4 className="vertical-timeline-element-subtitle">test</h4>
