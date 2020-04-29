@@ -8,6 +8,7 @@ query{
     firstname
     lastname
     profile
+    sex
   }
 }
 `

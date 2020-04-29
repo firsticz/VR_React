@@ -25,5 +25,11 @@ query($eventId: Float){
     }
     
   }
+  eventOne(filter:{eventId: $eventId}){
+    id
+    member
+    start_date
+    end_date
+  }
 }
 `

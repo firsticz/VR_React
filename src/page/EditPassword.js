@@ -52,7 +52,7 @@ const EditPassword = (props) => {
             <Form.Group controlId="group">
               <Form.Label>Team</Form.Label>
               <Form.Control as="select" onChange={ (x: React.FormEvent<FormControl & HTMLOptionElement>) => { setGroupid(x.currentTarget.value) } } >
-                <option value="">" "</option>
+                {/* <option value="">" "</option> */}
                 {data.groupMany.map((e, i)=>(
                   <option value={e.groupId}>{e.name}</option>
                 ))}
