@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useMutation } from 'react-apollo'
-import { Spinner, Table, Button, Modal, Row, Col } from 'react-bootstrap';
+import { Spinner, Tabs, Button, Modal, Row, Col, Tab } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 // import moment from 'moment'
 import AuthContext from '../context/AuthContext'
@@ -24,6 +24,7 @@ const EventDetail = props => {
   })
   const [ registerEvent ] = useMutation(RegisterEvent)
   const [show, setShow] = useState(false)
+  const [key, setKey] = useState('home')
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -158,10 +159,23 @@ const EventDetail = props => {
 
     return style;
   }
+  const defaultSorted = [{
+    dataField: 'activities',
+    order: 'desc'
+  }];
   
   return (
     <Container>
-       <Button onClick={handleShow} variant="primary" disabled={data.activityhasevent.find(ele => Number(ele._id) === user.id) !== undefined}>สมัคร</Button>
+        {data.activityhasevent.find(ele => Number(ele._id) === user.id) === undefined ?(
+          <Button 
+            onClick={handleShow} 
+            variant="primary" 
+            // disabled={data.activityhasevent.find(ele => Number(ele._id) === user.id) !== undefined}
+          >Join Now</Button>
+        ):(
+          null
+        )}
+       
       <div>
       <p>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p>
       <p>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p>
@@ -200,13 +214,26 @@ const EventDetail = props => {
           )}
         </tbody>
       </Table> */}
-      <BootstrapTable 
-        keyField='_id' 
-        data={ data.activityhasevent } 
-        columns={ columns } 
-        pagination={ paginationFactory(options) }
-        rowStyle={ rowMyselfStyle }
-      />
+       <Tabs
+          id="controlled-tab-example"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+        >
+        <Tab eventKey="home" title="Overall">
+          <BootstrapTable 
+            keyField='_id' 
+            data={ data.activityhasevent } 
+            columns={ columns } 
+            pagination={ paginationFactory(options) }
+            rowStyle={ rowMyselfStyle }
+            defaultSorted={ defaultSorted } 
+          />
+        </Tab>
+        <Tab eventKey="profile" title="My Team">
+          <p>test</p>
+        </Tab>
+      </Tabs>
+      
 
 
 
