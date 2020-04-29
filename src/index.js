@@ -11,6 +11,7 @@ import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from './page/Login'
