@@ -9,9 +9,10 @@ import RegisterEvent from '../graphql/mutations/RegisterEvent'
 import _ from 'lodash'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRunning, faClock, faRoad } from '@fortawesome/free-solid-svg-icons'
+import { faRunning, faClock, faRoad ,faCircle} from '@fortawesome/free-solid-svg-icons'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+
 
 const EventDetail = props => {
   const { history } = props
@@ -176,14 +177,22 @@ const EventDetail = props => {
           null
         )}
        
-      <div>
-      <p>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p>
-      <p>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p>
+      <div style={{padding:'20px',float:'right'}}>
+      <FontAwesomeIcon size="1x" icon={faCircle} color="green" />&nbsp;&nbsp;&nbsp;
+        <b><p style={{display:'inline'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <FontAwesomeIcon size="1x" icon={faCircle} color="red" />&nbsp;&nbsp;&nbsp;
+        <b><p style={{display:'inline'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
       </div>
-      <Row>
-        <Col style={{height: '100px'}}><FontAwesomeIcon size="3x" icon={faRunning} /><p>{data.activityhasevent.length} Runner</p></Col>
-        <Col><FontAwesomeIcon size="3x" icon={faClock} /><p>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</p></Col>
-        <Col><FontAwesomeIcon size="3x" icon={faRoad} /><p>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</p></Col>
+      <Row style={{paddingTop:'20px',marginBottom:'-20px'}}>
+        <Col style={{height: '100px',marginRight:'-55%'}}>
+          <FontAwesomeIcon size="2x" icon={faRunning}  style={{marginLeft:'15px'}}/>
+          <p style={{fontSize:'13px'}}><b>{data.activityhasevent.length}Runner</b></p> </Col>
+        <Col  style={{marginRight:'-55%'}}>
+          <FontAwesomeIcon size="2x" icon={faClock}  style={{marginLeft:'11px'}}/>
+          <p style={{fontSize:'13px'}}><b>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</b></p></Col>
+        <Col>
+          <FontAwesomeIcon size="2x" icon={faRoad}  style={{marginLeft:'8px'}}/>
+          <p style={{fontSize:'13px'}}><b>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</b></p></Col>
       </Row>
       {/*
       <Table>
