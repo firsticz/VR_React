@@ -16,19 +16,19 @@ const Bar = (props) =>{
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/event">Event</Nav.Link>
-        <Nav.Link href="/group">Group</Nav.Link>
+        {/* <Nav.Link href="/group">Group</Nav.Link> */}
         <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
         <Nav.Link href="/activity">Activity</Nav.Link>
         {props.role === 'ADMIN'?<Nav.Link href="/admin">Admin</Nav.Link>:null}
       </Nav>
       <Nav.Link href="#" onClick={removetoken}>Sign Out</Nav.Link>
-      <OverlayTrigger 
+      {/* <OverlayTrigger 
        placement="bottom"
        delay={{ show: 250, hide: 400 }}
        overlay={renderTooltip}
        >
         <Nav><img style={{width:'50px', borderRadius:'50px'}} src={`${props.profile}`} alt="profile"></img></Nav>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
     </Navbar.Collapse>
     
   </Navbar>

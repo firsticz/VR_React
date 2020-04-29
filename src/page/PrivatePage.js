@@ -28,7 +28,9 @@ const PrivatePage = (props) => {
       display: 'block',
       overflowY: 'scroll'
     }}>
-      <Navbar profile={`${user.profile}`} role={`${user.role}`} />
+      <Navbar 
+        // profile={`${user.profile}`} 
+        role={`${user.role}`} />
         {/* <p>{user.id}</p>
         <p>{user.accesstoken}</p> */}
         <Switch>
