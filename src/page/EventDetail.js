@@ -178,10 +178,10 @@ const EventDetail = props => {
         )}
        
       <div style={{padding:'20px',float:'right'}}>
-      <FontAwesomeIcon size="1x" icon={faCircle} color="green" />&nbsp;&nbsp;&nbsp;
-        <b><p style={{display:'inline'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FontAwesomeIcon size="1x" icon={faCircle} color="red" />&nbsp;&nbsp;&nbsp;
-        <b><p style={{display:'inline'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
+      <FontAwesomeIcon size="1x" icon={faCircle} color="green"/>
+        <b><p style={{display:'inline',marginLeft:'10px',marginRight:'30px'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>
+        <FontAwesomeIcon size="1x" icon={faCircle} color="red"  />
+        <b><p style={{display:'inline',marginLeft:'10px'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
       </div>
       <Row style={{paddingTop:'20px',marginBottom:'-20px'}}>
         <Col style={{height: '100px',marginRight:'-55%'}}>
