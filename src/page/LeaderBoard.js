@@ -124,32 +124,6 @@ const LeaderBoard = (props) => {
   return (
       <Container>
         <div>
-          {/* <Table>
-          <thead>
-            <tr  style={{backgroundColor:'#FFA500',color:'#222'}}>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>distance (Km)</th>
-            </tr>
-          </thead>
-          <tbody style={{padding:'1'}}>
-            {loading?(
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            ):(
-              data.leaderboard.map((item, index)=>(
-                <tr key={index} style={{}}>
-                  <td>{index+1}</td>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{Number(item.totaldistance / 1000).toFixed(2)}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-          </Table> */}
           {loading?(
             <Spinner animation="border" role="status">
               <span className="sr-only">Loading...</span>
