@@ -274,14 +274,17 @@ const columns2 = [{
           null
         )}
        
-      <div style={{padding:'20px',float:'right'}}>
+       <div style={{width:'100%'}}>
+       <div  style={{float:"right", marginTop:'2%'}}>
       <FontAwesomeIcon size="1x" icon={faCircle} color="green"/>
         <b><p style={{display:'inline',marginLeft:'10px',marginRight:'30px'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>
         <FontAwesomeIcon size="1x" icon={faCircle} color="red"  />
         <b><p style={{display:'inline',marginLeft:'10px'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
       </div>
-      <Row style={{paddingTop:'20px',marginBottom:'-20px'}}>
-        <Col style={{height: '100px',marginRight:'-55%'}}>
+       </div>
+     
+      <Row  style={{paddingTop:'20px',marginBottom:'-20px',width:'100%'}}>
+        <Col  style={{height: '100px',marginRight:'-55%'}}>
           <FontAwesomeIcon size="2x" icon={faRunning}  style={{marginLeft:'15px'}}/>
           <p style={{fontSize:'13px'}}><b>{data.activityhasevent.length}Runner</b></p> </Col>
         <Col  style={{marginRight:'-55%'}}>
