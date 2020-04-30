@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useMutation } from 'react-apollo'
-import { Spinner, Table, Button, Modal, Row, Col } from 'react-bootstrap';
+import { Spinner, Tabs, Button, Modal, Row, Col, Tab } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 // import moment from 'moment'
 import AuthContext from '../context/AuthContext'
@@ -9,21 +9,24 @@ import RegisterEvent from '../graphql/mutations/RegisterEvent'
 import _ from 'lodash'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRunning, faClock, faRoad } from '@fortawesome/free-solid-svg-icons'
+import { faRunning, faClock, faRoad ,faCircle} from '@fortawesome/free-solid-svg-icons'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+
 
 const EventDetail = props => {
   const { history } = props
   const { eventId } = props.match.params
   const { user } = useContext(AuthContext)
-  const { data = { activityhasevent: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
+  const { data = { activityhasevent: [], MyteamLead:[], groupleader: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
     variables: {
-      eventId: Number(eventId)
+      eventId: Number(eventId),
+      userId: Number(user.id),
     }
   })
   const [ registerEvent ] = useMutation(RegisterEvent)
   const [show, setShow] = useState(false)
+  const [key, setKey] = useState('home')
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -32,7 +35,7 @@ const EventDetail = props => {
       await registerEvent({
         variables: {
           eventid: Number(eventId),
-          userid: user.id
+          userid:  Number(user.id)
         },
       })
       alert('success')
@@ -79,6 +82,16 @@ const EventDetail = props => {
     <p>{Number(_.sumBy(cell,'distance') / 1000).toFixed(2)}</p>
     )
   }
+  const customtime = (cell, row) => {
+    return (
+    <p>{moment.utc(Number(_.sumBy(cell,'moving_time') * 1000)).format('HH:mm:ss')}</p>
+    )
+  }
+  const customavg = (cell, row) => {
+    return (
+    <p>{Number((_.meanBy(cell,'average_speed') * 3600) / 1000 ).toFixed(2)}</p>
+    )
+  }
 
   const columns = [{
     dataField: '_id',
@@ -102,7 +115,7 @@ const EventDetail = props => {
     }
   }, {
     dataField: 'profile[0].lastname',
-    text: 'Last Price',
+    text: 'Last Name',
     sort: true,
     headerStyle: {
       backgroundColor: 'rgb(255, 165, 0)'
@@ -115,9 +128,46 @@ const EventDetail = props => {
       backgroundColor: 'rgb(255, 165, 0)'
     },
     formatter: customtotal
-  }]
+  }, {
+    dataField: 'activities',
+    text: 'Time',
+    sort: true,
+    headerStyle: {
+      backgroundColor: 'rgb(255, 165, 0)'
+    },
+    formatter: customtime
+  }, 
+  // {
+  //   dataField: 'activities',
+  //   text: 'Average Speed (Km/h)',
+  //   sort: true,
+  //   headerStyle: {
+  //     backgroundColor: 'rgb(255, 165, 0)'
+  //   },
+  //   formatter: customavg
+  // }
+]
 
-  const customTotal = (from, to, size) => (
+const columns2 = [{
+  dataField: 'groupDetail[0].name',
+  text: 'Team Name',
+  sort: true,
+  headerStyle: {
+    backgroundColor: 'rgb(255, 165, 0)'
+  }
+},{
+  dataField: 'activity',
+  text: 'distance',
+  sort: true,
+  headerStyle: {
+    backgroundColor: 'rgb(255, 165, 0)'
+  },
+  formatter: customtotal
+},
+]
+
+
+  const customTotals = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
       Showing { from } to { to } of { size } Results
     </span>
@@ -135,7 +185,7 @@ const EventDetail = props => {
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
-    paginationTotalRenderer: customTotal,
+    paginationTotalRenderer: customTotals,
     disablePageTitle: true,
     sizePerPageList: [{
       text: '5', value: 5
@@ -145,6 +195,51 @@ const EventDetail = props => {
       text: 'All', value: data.activityhasevent.length
     }] 
   }
+  const options2 = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotals,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: data.MyteamLead.length
+    }] 
+  }
+  const options3 = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotals,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: data.groupleader.length
+    }] 
+  }
+
 
   const rowMyselfStyle = (row, rowIndex) => {
     row.index = rowIndex;
@@ -158,55 +253,84 @@ const EventDetail = props => {
 
     return style;
   }
+  const defaultSorted = [{
+    dataField: 'activities',
+    order: 'desc'
+  }];
+  const defaultSortedac = [{
+    dataField: 'activity',
+    order: 'desc'
+  }];
   
   return (
     <Container>
-       <Button onClick={handleShow} variant="primary" disabled={data.activityhasevent.find(ele => Number(ele._id) === user.id) !== undefined}>สมัคร</Button>
-      <div>
-      <p>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p>
-      <p>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p>
+        {data.activityhasevent.find(ele => Number(ele._id) === user.id) === undefined ?(
+          <Button 
+            onClick={handleShow} 
+            variant="primary" 
+            // disabled={data.activityhasevent.find(ele => Number(ele._id) === user.id) !== undefined}
+          >Join Now</Button>
+        ):(
+          null
+        )}
+       
+      <div style={{padding:'20px',float:'right'}}>
+      <FontAwesomeIcon size="1x" icon={faCircle} color="green"/>
+        <b><p style={{display:'inline',marginLeft:'10px',marginRight:'30px'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>
+        <FontAwesomeIcon size="1x" icon={faCircle} color="red"  />
+        <b><p style={{display:'inline',marginLeft:'10px'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
       </div>
-      <Row>
-        <Col style={{height: '100px'}}><FontAwesomeIcon size="3x" icon={faRunning} /><p>{data.activityhasevent.length} Runner</p></Col>
-        <Col><FontAwesomeIcon size="3x" icon={faClock} /><p>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</p></Col>
-        <Col><FontAwesomeIcon size="3x" icon={faRoad} /><p>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</p></Col>
+      <Row style={{paddingTop:'20px',marginBottom:'-20px'}}>
+        <Col style={{height: '100px',marginRight:'-55%'}}>
+          <FontAwesomeIcon size="2x" icon={faRunning}  style={{marginLeft:'15px'}}/>
+          <p style={{fontSize:'13px'}}><b>{data.activityhasevent.length}Runner</b></p> </Col>
+        <Col  style={{marginRight:'-55%'}}>
+          <FontAwesomeIcon size="2x" icon={faClock}  style={{marginLeft:'11px'}}/>
+          <p style={{fontSize:'13px'}}><b>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</b></p></Col>
+        <Col>
+          <FontAwesomeIcon size="2x" icon={faRoad}  style={{marginLeft:'8px'}}/>
+          <p style={{fontSize:'13px'}}><b>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</b></p></Col>
       </Row>
-      {/*
-      <Table>
-        <thead>
-          <tr  style={{backgroundColor:'#FFA500',color:'#222'}}>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>distance (Km)</th>
-          </tr>
-        </thead>
-        <tbody style={{padding:'1'}}>
-            {loading?(
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            ):(
-            data.activityhasevent.map((item, index)=>(
-            <>
-            <tr key={index} style={{}}>
-              <td>{item._id}</td>
-              <td>{item.profile[0].firstname}</td>
-              <td>{item.profile[0].lastname}</td>
-              <td>{Number(_.sumBy(item.activities,'distance') / 1000).toFixed(2)}</td>
-            </tr>
-            </>
-            ))
-          )}
-        </tbody>
-      </Table> */}
-      <BootstrapTable 
-        keyField='_id' 
-        data={ data.activityhasevent } 
-        columns={ columns } 
-        pagination={ paginationFactory(options) }
-        rowStyle={ rowMyselfStyle }
-      />
+
+       <Tabs
+          id="controlled-tab-example"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+        >
+        <Tab eventKey="home" title="Overall">
+          <BootstrapTable 
+            keyField='_id' 
+            data={ data.activityhasevent } 
+            columns={ columns } 
+            pagination={ paginationFactory(options) }
+            rowStyle={ rowMyselfStyle }
+            defaultSorted={ defaultSorted } 
+          />
+        </Tab>
+        <Tab eventKey="myteam" title="My Team">
+          <BootstrapTable 
+            keyField='_id' 
+            data={ data.MyteamLead } 
+            columns={ columns } 
+            pagination={ paginationFactory(options2) }
+            rowStyle={ rowMyselfStyle }
+            defaultSorted={ defaultSorted } 
+          />
+        </Tab>
+        <Tab eventKey="team" title="Team Leader">
+
+             <BootstrapTable 
+             keyField='_id' 
+             data={ data.groupleader } 
+             columns={ columns2 } 
+            pagination={ paginationFactory(options3) }
+            //  rowStyle={ rowMyselfStyle }
+            defaultSorted={ defaultSortedac }   
+           />
+         
+        </Tab>
+      </Tabs>
+      
 
 
 
