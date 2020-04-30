@@ -17,11 +17,14 @@ query($eventId: Float){
       distance
       start_date
       name
+      moving_time
+      average_speed
     }
     profile{
       username
       firstname
       lastname
+      group
     }
     
   }
@@ -30,6 +33,24 @@ query($eventId: Float){
     member
     start_date
     end_date
+  }
+  groupleader(eventId: $eventId){
+    activity {
+      id
+      distance
+      
+    }
+    user {
+      id
+      username
+      firstname
+      lastname
+    }
+    groupDetail {
+      groupId
+      name
+    }
+    
   }
 }
 `

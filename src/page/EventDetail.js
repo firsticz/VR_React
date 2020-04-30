@@ -18,7 +18,7 @@ const EventDetail = props => {
   const { history } = props
   const { eventId } = props.match.params
   const { user } = useContext(AuthContext)
-  const { data = { activityhasevent: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
+  const { data = { activityhasevent: [], groupleader: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
     variables: {
       eventId: Number(eventId)
     }
@@ -81,6 +81,16 @@ const EventDetail = props => {
     <p>{Number(_.sumBy(cell,'distance') / 1000).toFixed(2)}</p>
     )
   }
+  const customtime = (cell, row) => {
+    return (
+    <p>{moment.utc(Number(_.sumBy(cell,'moving_time') * 1000)).format('HH:mm:ss')}</p>
+    )
+  }
+  const customavg = (cell, row) => {
+    return (
+    <p>{Number((_.meanBy(cell,'average_speed') * 3600) / 1000 ).toFixed(2)}</p>
+    )
+  }
 
   const columns = [{
     dataField: '_id',
@@ -104,7 +114,7 @@ const EventDetail = props => {
     }
   }, {
     dataField: 'profile[0].lastname',
-    text: 'Last Price',
+    text: 'Last Name',
     sort: true,
     headerStyle: {
       backgroundColor: 'rgb(255, 165, 0)'
@@ -117,9 +127,46 @@ const EventDetail = props => {
       backgroundColor: 'rgb(255, 165, 0)'
     },
     formatter: customtotal
-  }]
+  }, {
+    dataField: 'activities',
+    text: 'Time',
+    sort: true,
+    headerStyle: {
+      backgroundColor: 'rgb(255, 165, 0)'
+    },
+    formatter: customtime
+  }, 
+  // {
+  //   dataField: 'activities',
+  //   text: 'Average Speed (Km/h)',
+  //   sort: true,
+  //   headerStyle: {
+  //     backgroundColor: 'rgb(255, 165, 0)'
+  //   },
+  //   formatter: customavg
+  // }
+]
 
-  const customTotal = (from, to, size) => (
+const columns2 = [{
+  dataField: 'groupDetail[0].name',
+  text: 'Team Name',
+  sort: true,
+  headerStyle: {
+    backgroundColor: 'rgb(255, 165, 0)'
+  }
+},{
+  dataField: 'activity',
+  text: 'distance',
+  sort: true,
+  headerStyle: {
+    backgroundColor: 'rgb(255, 165, 0)'
+  },
+  formatter: customtotal
+},
+]
+
+
+  const customTotals = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
       Showing { from } to { to } of { size } Results
     </span>
@@ -137,7 +184,7 @@ const EventDetail = props => {
     firstPageTitle: 'Next page',
     lastPageTitle: 'Last page',
     showTotal: true,
-    paginationTotalRenderer: customTotal,
+    paginationTotalRenderer: customTotals,
     disablePageTitle: true,
     sizePerPageList: [{
       text: '5', value: 5
@@ -147,6 +194,29 @@ const EventDetail = props => {
       text: 'All', value: data.activityhasevent.length
     }] 
   }
+  const options2 = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotals,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: data.length
+    }] 
+  }
+
 
   const rowMyselfStyle = (row, rowIndex) => {
     row.index = rowIndex;
@@ -194,35 +264,7 @@ const EventDetail = props => {
           <FontAwesomeIcon size="2x" icon={faRoad}  style={{marginLeft:'8px'}}/>
           <p style={{fontSize:'13px'}}><b>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</b></p></Col>
       </Row>
-      {/*
-      <Table>
-        <thead>
-          <tr  style={{backgroundColor:'#FFA500',color:'#222'}}>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>distance (Km)</th>
-          </tr>
-        </thead>
-        <tbody style={{padding:'1'}}>
-            {loading?(
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            ):(
-            data.activityhasevent.map((item, index)=>(
-            <>
-            <tr key={index} style={{}}>
-              <td>{item._id}</td>
-              <td>{item.profile[0].firstname}</td>
-              <td>{item.profile[0].lastname}</td>
-              <td>{Number(_.sumBy(item.activities,'distance') / 1000).toFixed(2)}</td>
-            </tr>
-            </>
-            ))
-          )}
-        </tbody>
-      </Table> */}
+
        <Tabs
           id="controlled-tab-example"
           activeKey={key}
@@ -238,8 +280,27 @@ const EventDetail = props => {
             defaultSorted={ defaultSorted } 
           />
         </Tab>
-        <Tab eventKey="profile" title="My Team">
-          <p>test</p>
+        <Tab eventKey="myteam" title="My Team">
+          {/* <BootstrapTable 
+            keyField='_id' 
+            data={ data } 
+            columns={ columns } 
+            pagination={ paginationFactory(options) }
+            rowStyle={ rowMyselfStyle }
+            defaultSorted={ defaultSorted } 
+          /> */}
+        </Tab>
+        <Tab eventKey="team" title="Team Leader">
+
+             <BootstrapTable 
+             keyField='_id' 
+             data={ data.groupleader } 
+             columns={ columns2 } 
+            // pagination={ paginationFactory(options2) }
+            //  rowStyle={ rowMyselfStyle }
+            // defaultSorted={ defaultSorted } 
+           />
+         
         </Tab>
       </Tabs>
       

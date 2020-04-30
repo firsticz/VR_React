@@ -6,6 +6,7 @@ import AuthContext from '../context/AuthContext'
 import getLeaderBoard from '../graphql/queries/getLeaderBoard'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import moment from 'moment'
 
 
 const LeaderBoard = (props) => {
@@ -23,6 +24,11 @@ const LeaderBoard = (props) => {
   const changdistance = (cell, row) => {
     return (
     <p>{Number(cell / 1000).toFixed(2)}</p>
+    )
+  }
+  const changtime = (cell, row) => {
+    return (
+    <p>{moment.utc(Number(cell * 1000)).format('HH:mm:ss')}</p>
     )
   }
 
@@ -62,6 +68,14 @@ const LeaderBoard = (props) => {
       backgroundColor: 'rgb(255, 165, 0)'
     },
   formatter: changdistance
+  }, {
+    dataField: 'totaltime',
+    text: 'Time',
+    sort: true,
+    headerStyle: {
+      backgroundColor: 'rgb(255, 165, 0)'
+    },
+  formatter: changtime
   }]
 
   const customTotal = (from, to, size) => (

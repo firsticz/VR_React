@@ -9,6 +9,7 @@ query{
     lastname
     profile
     sex
+    totaltime
   }
 }
 `
