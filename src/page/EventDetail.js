@@ -18,9 +18,10 @@ const EventDetail = props => {
   const { history } = props
   const { eventId } = props.match.params
   const { user } = useContext(AuthContext)
-  const { data = { activityhasevent: [], groupleader: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
+  const { data = { activityhasevent: [], MyteamLead:[], groupleader: [], eventOne: {}}, loading } = useQuery(getactivityhasevent,{
     variables: {
-      eventId: Number(eventId)
+      eventId: Number(eventId),
+      userId: Number(user.id),
     }
   })
   const [ registerEvent ] = useMutation(RegisterEvent)
@@ -34,7 +35,7 @@ const EventDetail = props => {
       await registerEvent({
         variables: {
           eventid: Number(eventId),
-          userid: user.id
+          userid:  Number(user.id)
         },
       })
       alert('success')
@@ -213,7 +214,29 @@ const columns2 = [{
     }, {
       text: '10', value: 10
     }, {
-      text: 'All', value: data.length
+      text: 'All', value: data.MyteamLead.length
+    }] 
+  }
+  const options3 = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotals,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: data.groupleader.length
     }] 
   }
 
@@ -232,6 +255,10 @@ const columns2 = [{
   }
   const defaultSorted = [{
     dataField: 'activities',
+    order: 'desc'
+  }];
+  const defaultSortedac = [{
+    dataField: 'activity',
     order: 'desc'
   }];
   
@@ -284,14 +311,14 @@ const columns2 = [{
           />
         </Tab>
         <Tab eventKey="myteam" title="My Team">
-          {/* <BootstrapTable 
+          <BootstrapTable 
             keyField='_id' 
-            data={ data } 
+            data={ data.MyteamLead } 
             columns={ columns } 
-            pagination={ paginationFactory(options) }
+            pagination={ paginationFactory(options2) }
             rowStyle={ rowMyselfStyle }
             defaultSorted={ defaultSorted } 
-          /> */}
+          />
         </Tab>
         <Tab eventKey="team" title="Team Leader">
 
@@ -299,9 +326,9 @@ const columns2 = [{
              keyField='_id' 
              data={ data.groupleader } 
              columns={ columns2 } 
-            // pagination={ paginationFactory(options2) }
+            pagination={ paginationFactory(options3) }
             //  rowStyle={ rowMyselfStyle }
-            // defaultSorted={ defaultSorted } 
+            defaultSorted={ defaultSortedac }   
            />
          
         </Tab>
