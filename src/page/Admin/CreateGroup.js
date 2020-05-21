@@ -17,12 +17,12 @@ const CreateGroup = (props) => {
           <div style={{marginTop:'40%'}}>
           <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>GroupID</Form.Label>
+              <Form.Label>GroupID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setGroupid(x.currentTarget.value) } } />
             </Form.Group>
 
             <Form.Group controlId="username">
-              <Form.Label>name</Form.Label>
+              <Form.Label>name<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" placeholder="name" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setName(x.currentTarget.value) } }  />
             </Form.Group>
             

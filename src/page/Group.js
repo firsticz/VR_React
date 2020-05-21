@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import getGroup from '../graphql/queries/getGroup' 
 
-const Group = (props) => {
+const Group = () => {
   const { data = { groupMany: []}, loading } = useQuery(getGroup)
 
   // useEffect(()=>{
@@ -23,7 +23,7 @@ const Group = (props) => {
         ):(
           
           data.groupMany.map((item, index)=>(
-            // <Link to={`/event/${item.groupId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
+            <Link to={`/group/${item.groupId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
               <Col xs={12} md={4} style={{paddingTop:'50px'}}>
                 <Card style={{ width: '18rem' }} >
                   <Card.Img variant="top" src="/images/1.jpg" />
@@ -32,11 +32,10 @@ const Group = (props) => {
                     {/* <Card.Text>
                       {moment(item.start_date).format('YYYY/MM/DD') +' - ' + moment(item.end_date).format('YYYY/MM/DD')}
                     </Card.Text>  */}
-                    <Button variant="primary">Go somewhere</Button>
                   </Card.Body>
                 </Card>
               </Col>
-            // </Link>
+            </Link>
             
           ))
         )}

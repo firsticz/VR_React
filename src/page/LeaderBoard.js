@@ -55,7 +55,7 @@ const LeaderBoard = (props) => {
     }
   }, {
     dataField: 'lastname',
-    text: 'Last Price',
+    text: 'Last Name',
     sort: true,
     headerStyle: {
       backgroundColor: 'rgb(255, 165, 0)'

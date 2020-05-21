@@ -16,7 +16,7 @@ const Bar = (props) =>{
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/event">Event</Nav.Link>
-        {/* <Nav.Link href="/group">Group</Nav.Link> */}
+        <Nav.Link href="/group">Group</Nav.Link>
         <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
         <Nav.Link href="/activity">Activity</Nav.Link>
         {props.role === 'ADMIN'?<Nav.Link href="/admin">Admin</Nav.Link>:null}
