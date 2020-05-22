@@ -86,7 +86,7 @@ const LeaderBoard = (props) => {
   
   const options = {
     paginationSize: 4,
-    pageStartIndex: 0,
+    pageStartIndex: 1,
     firstPageText: 'First',
     prePageText: 'Back',
     nextPageText: 'Next',
