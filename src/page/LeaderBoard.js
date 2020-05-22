@@ -55,7 +55,7 @@ const LeaderBoard = (props) => {
     }
   }, {
     dataField: 'lastname',
-    text: 'Last Price',
+    text: 'Last Name',
     sort: true,
     headerStyle: {
       backgroundColor: 'rgb(255, 165, 0)'
@@ -86,7 +86,7 @@ const LeaderBoard = (props) => {
   
   const options = {
     paginationSize: 4,
-    pageStartIndex: 0,
+    pageStartIndex: 1,
     firstPageText: 'First',
     prePageText: 'Back',
     nextPageText: 'Next',

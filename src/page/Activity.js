@@ -18,6 +18,17 @@ const Activity = (props) => {
       id: Number(user.id)
     }
   })
+  const colorlist = [
+    'rgb(33, 150, 243)',
+    'rgb(241, 15, 87)'
+  ]
+  const handleColor = (distance) => {
+    if(distance > 1 ){
+      return colorlist[1]
+    } else {
+      return colorlist[0]
+    }
+  }
   useEffect(()=>{
     setShowLoading(false);
   },[])
@@ -63,14 +74,14 @@ const Activity = (props) => {
               <VerticalTimelineElement
                 key={index}
                 className="vertical-timeline-element--work"
-                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                contentStyle={{ background: handleColor(Number(item.distance / 1000 )), color: '#000' }}
+                contentArrowStyle={{ borderRight: '7px solid var(handleColor(Number(item.distance / 1000 )))' }}
                 date={moment(item.start_date).format('MM/DD/YYYY, h:mm:ss a')}
-                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                iconStyle={{ background: handleColor(Number(item.distance / 1000 )), color: '#fff' }}
                 icon={<FontAwesomeIcon icon={faRunning} />}
               >
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>
-                <h4 className="vertical-timeline-element-subtitle">test</h4>
+                {/* <h4 className="vertical-timeline-element-subtitle">test</h4> */}
                 <p>
                   distance : {Number(item.distance / 1000 ).toFixed(2)} km.
                 </p>

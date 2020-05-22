@@ -28,7 +28,7 @@ const Event = props => {
             <Link to={`/event/${item.eventId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
               <Col xs={12} md={4} style={{paddingTop:'50px'}}>
                 <Card style={{ width: '18rem' }} >
-                  <Card.Img variant="top" src="/images/1.jpg" />
+                  <Card.Img variant="top" src={`${item.banner}`} />
                   <Card.Body>
                     <Card.Title>{item.NameTH+' - ' +item.NameEN}</Card.Title>
                     <Card.Text>

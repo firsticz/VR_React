@@ -6,24 +6,54 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 import CreateEventMutation from '../../graphql/mutations/CreateEvent'
+import getEventId from '../../graphql/queries/geteventId'
+
+import base64Img from 'base64-img'
 
 
 const CreateEvent = (props) => {
+  const [ status, setStatus ] = useState(true)
   const [ eventid, setEventid ] = useState(0)
   const [ nameTH, setNameTH ] = useState('')
   const [ nameEN, setNameEN ] = useState('')
   const [ start_date, setStartDate ] = useState('')
   const [ end_date, setEndDate ] = useState('')
   const [createEvent] = useMutation(CreateEventMutation)
+  const { data = { eventOne: {}}, loading } = useQuery(getEventId)
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('');
+  const [ file, setFile ] = useState([])
+  const [ banner, setBanner ] = useState('')
   
   const  handleStartChange =(date) => {
     setStartDate(date)
     console.log(start_date)
   }
   const  handleEndChange =(date) => {
-    setEndDate(date)
-    console.log(end_date)
+    if(date < start_date) {
+      setMessage('Please Enter New Date')
+      setShow(true)
+    } else {
+      setEndDate(date)
+      console.log(end_date)
+    }
+    
   }
+  if(!loading && status){
+    setEventid(Number(data.eventOne.eventId + 1))
+    setStatus(false)
+  }
+
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+})
+const  getFiles = async (files) => {
+  const result = await toBase64(files).catch(e => Error(e))
+  setBanner(`${result}`)
+}
 
   return(
     <Container>
@@ -32,72 +62,98 @@ const CreateEvent = (props) => {
           <div style={{marginTop:'40%'}}>
           <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>EventID</Form.Label>
-              <Form.Control type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(x.currentTarget.value) } } />
+              <Form.Label>EventID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Control value={Number(data.eventOne.eventId + 1)} disabled type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(Number(data.eventOne.eventId + 1)) } } />
             </Form.Group>
 
             <Form.Group controlId="username">
-              <Form.Label>nameTH</Form.Label>
+              <Form.Label>nameTH<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" placeholder="eventNameTH" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>nameEN</Form.Label>
+              <Form.Label>nameEN<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" placeholder="eventNameEN" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
             </Form.Group>
             <Form.Group controlId="startDate">
-              <Form.Label>startdate</Form.Label>
+              <Form.Label>startdate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <DatePicker
                 selected={ start_date }
                 onChange={ handleStartChange }
                 name="startDate"
+                minDate={new Date()}
                 dateFormat="dd/MM/yyyy"
                 className="form-control"
               />
             </Form.Group>
 
             <Form.Group controlId="endDate">
-              <Form.Label>enddate</Form.Label>
+              <Form.Label>enddate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <DatePicker
                 selected={ end_date }
                 onChange={ handleEndChange }
                 name="endDate"
+                minDate={new Date()}
                 dateFormat="dd/MM/yyyy"
                 className="form-control"
+
               />
             </Form.Group>
-            
+            <Form.Group controlId="endDate">
+              <Form.Label>file<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Control type="file" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { getFiles(x.currentTarget.files[0]) } } />
+            </Form.Group>
+
             
 
             <Button variant="primary" type="submit" style={{width:'100%'}}
               onClick={async (e) => {
+                setEventid(Number(data.eventOne.eventId + 1))
+              
                 e.preventDefault()
-                try {
-                  await createEvent({
-                    variables: {
-                      id: Number(eventid),
-                      nameTH: nameTH,
-                      nameEN: nameEN,
-                      start_date: start_date,
-                      end_date: end_date
+                if(nameTH ===('') && nameEN ===('') && start_date===('') && end_date===('')){
+                  setMessage('Please Enter again')
+                  setShow(true)
+                 
+                }
+                else {
+                  // const result = await toBase64(file).catch(e => Error(e))
+                  // setBanner(result.toString())
+                  // console.log(banner)
+                  try {
+                    await createEvent({
+                      variables: {
+                        id: Number(eventid),
+                        nameTH: nameTH,
+                        nameEN: nameEN,
+                        start_date: start_date,
+                        end_date: end_date,
+                        banner: banner
+                      }
+                    })
+                    alert('success')
+                  } catch (err) {
+                    console.log(err)
+                    const { networkError, graphQLErrors: [gqlError] } = err
+                    if (networkError) {
+                      // this.setState({ open: true, message: 'ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ในขณะนี้' })
+                    } else if (gqlError) {
+                      // this.setState({ open: true, message: gqlError.message })
+                      console.log(gqlError.message)
                     }
-                  })
-                  alert('success')
-                } catch (err) {
-                  console.log(err)
-                  const { networkError, graphQLErrors: [gqlError] } = err
-                  if (networkError) {
-                    // this.setState({ open: true, message: 'ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ในขณะนี้' })
-                  } else if (gqlError) {
-                    // this.setState({ open: true, message: gqlError.message })
-                    console.log(gqlError.message)
                   }
                 }
+                
               }}
             >
               Submit
             </Button>
           </Form>
+          {show=== true ? (
+            <Alert variant="danger"  onClose={() => setShow(false)} dismissible>
+              {message}
+            </Alert>):null
+          }
 
           </div>
           

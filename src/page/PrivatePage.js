@@ -11,6 +11,7 @@ import LeaderBoard from './LeaderBoard'
 import Activity from './Activity'
 import Event from './Event'
 import EventDetail from './EventDetail'
+import GroupDetail from './Group_detail'
 import Admin from './Admin/AdminPage'
 
 const PrivatePage = (props) => {
@@ -32,7 +33,9 @@ const PrivatePage = (props) => {
           <PrivateRoute path="/leaderboard" component={LeaderBoard} />
           {/* <PrivateRoute path="/group/:id/:eventid" component={GroupDetail} />
           <PrivateRoute path="/group/:id" component={GroupDetail} /> */}
+          <PrivateRoute path="/group/:groupid" component={GroupDetail} />
           <PrivateRoute path="/group" component={Group} />
+          
           <PrivateRoute path="/activity" component={Activity} />
           <PrivateRoute path="/event/:eventId" component={EventDetail} />
           <PrivateRoute path="/event" component={Event} />
