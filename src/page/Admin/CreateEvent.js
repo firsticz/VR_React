@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css"
 import CreateEventMutation from '../../graphql/mutations/CreateEvent'
 import getEventId from '../../graphql/queries/geteventId'
 
+import base64Img from 'base64-img'
+
 
 const CreateEvent = (props) => {
   const [ status, setStatus ] = useState(true)
@@ -20,6 +22,8 @@ const CreateEvent = (props) => {
   const { data = { eventOne: {}}, loading } = useQuery(getEventId)
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState('');
+  const [ file, setFile ] = useState([])
+  const [ banner, setBanner ] = useState('')
   
   const  handleStartChange =(date) => {
     setStartDate(date)
@@ -39,6 +43,17 @@ const CreateEvent = (props) => {
     setEventid(Number(data.eventOne.eventId + 1))
     setStatus(false)
   }
+
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+})
+const  getFiles = async (files) => {
+  const result = await toBase64(files).catch(e => Error(e))
+  setBanner(`${result}`)
+}
 
   return(
     <Container>
@@ -84,18 +99,27 @@ const CreateEvent = (props) => {
 
               />
             </Form.Group>
-            
+            <Form.Group controlId="endDate">
+              <Form.Label>file<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Control type="file" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { getFiles(x.currentTarget.files[0]) } } />
+            </Form.Group>
+
             
 
             <Button variant="primary" type="submit" style={{width:'100%'}}
               onClick={async (e) => {
                 setEventid(Number(data.eventOne.eventId + 1))
+              
                 e.preventDefault()
                 if(nameTH ===('') && nameEN ===('') && start_date===('') && end_date===('')){
                   setMessage('Please Enter again')
                   setShow(true)
+                 
                 }
                 else {
+                  // const result = await toBase64(file).catch(e => Error(e))
+                  // setBanner(result.toString())
+                  // console.log(banner)
                   try {
                     await createEvent({
                       variables: {
@@ -103,7 +127,8 @@ const CreateEvent = (props) => {
                         nameTH: nameTH,
                         nameEN: nameEN,
                         start_date: start_date,
-                        end_date: end_date
+                        end_date: end_date,
+                        banner: banner
                       }
                     })
                     alert('success')
