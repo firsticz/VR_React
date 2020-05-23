@@ -13,10 +13,11 @@ import moment from 'moment'
 const Event = props => {
   const { data = { eventMany: []}, loading } = useQuery(getEvent)
   // const { user } = useContext(AuthContext)
+ 
 
 
   return(
-    <Container>
+    <Container style={{marginLeft:'15%'}}>
       <Row>
         {loading?(
           <Spinner animation="border" role="status">
