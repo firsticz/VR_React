@@ -280,7 +280,7 @@ const calrunner =(member) => {
   
   return (
     <Container>
-        {data.activityhasevent.find(ele => Number(ele._id) === user.id) === undefined ?(
+        {data2.eventOne.member.find(ele => Number(ele) === user.id) === undefined ?(
           <Button 
             onClick={handleShow} 
             variant="primary" 
