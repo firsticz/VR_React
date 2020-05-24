@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo'
 import { Spinner, Row, Col, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import { Link } from 'react-router-dom'
-import getEvent from '../graphql/queries/getEvent'
+import getEvent from '../graphql/queries/getMyEvent'
 import AuthContext from '../context/AuthContext'
 import moment from 'moment'
 
@@ -11,7 +11,12 @@ import moment from 'moment'
 
 
 const Event = props => {
-  const { data = { eventMany: []}, loading } = useQuery(getEvent)
+  const { user } = useContext(AuthContext)
+  const { data = { eventMany: []}, loading } = useQuery(getEvent,{
+    variables: {
+      userId: Number(user.id),
+    }
+  })
   // const { user } = useContext(AuthContext)
  
 
@@ -28,8 +33,8 @@ const Event = props => {
           data.eventMany.map((item, index)=>(
             <Link to={`/event/${item.eventId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
               <Col xs={12} md={4} style={{paddingTop:'50px'}}>
-                <Card style={{ width: '18rem' }} >
-                  <Card.Img variant="top" src={`${item.banner}`} />
+                <Card style={{ width: '18rem' ,borderRadius:'25px',border:'10px',width:'320px',height:'250px',boxShadow:'5px 5px 5px grey'}} >
+                  <Card.Img variant="top" style={{width:'100%',height:'150px',borderRadius:'25px 25px 0px 0px'}} src={`${item.banner}`} />
                   <Card.Body>
                     <Card.Title>{item.NameTH+' - ' +item.NameEN}</Card.Title>
                     <Card.Text>

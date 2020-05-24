@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 // import moment from 'moment'
 import AuthContext from '../context/AuthContext'
 import getactivityhasevent from '../graphql/queries/getActivityhasevent'
+import getEvent from '../graphql/queries/getEventOne'
 import RegisterEvent from '../graphql/mutations/RegisterEvent'
 import _ from 'lodash'
 import moment from 'moment'
@@ -24,9 +25,17 @@ const EventDetail = props => {
       userId: Number(user.id),
     }
   })
+  const { data: data2 = { eventOne: {}}, loading2 } = useQuery(getEvent,{
+    variables: {
+      eventId: Number(eventId),
+    }
+  })
   const [ registerEvent ] = useMutation(RegisterEvent)
   const [show, setShow] = useState(false)
   const [key, setKey] = useState('home')
+
+  const [ statuscountmember, setStatusCountmember] = useState(true)
+  let allmember = []
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -261,6 +270,13 @@ const columns2 = [{
     dataField: 'activity',
     order: 'desc'
   }];
+
+
+const calrunner =(member) => {
+    allmember = [...new Set(member)]
+    console.log(allmember.length)
+    return allmember.length
+  }
   
   return (
     <Container>
@@ -268,7 +284,7 @@ const columns2 = [{
           <Button 
             onClick={handleShow} 
             variant="primary" 
-            // disabled={data.activityhasevent.find(ele => Number(ele._id) === user.id) !== undefined}
+            disabled={data2.eventOne.member.find(ele => Number(ele) === user.id) !== undefined && moment(data.eventOne.end_date).format('YYYY/MM/DD') < moment().format('YYYY/MM/DD')}
           >Join Now</Button>
         ):(
           null
@@ -286,7 +302,7 @@ const columns2 = [{
       <Row  style={{paddingTop:'20px',marginBottom:'-20px',width:'100%'}}>
         <Col  style={{height: '100px',marginRight:'-55%'}}>
           <FontAwesomeIcon size="2x" icon={faRunning}  style={{marginLeft:'15px'}}/>
-          <p style={{fontSize:'13px'}}><b>{data.activityhasevent.length}Runner</b></p> </Col>
+          <p style={{fontSize:'13px'}}><b>{calrunner(data2.eventOne.member)}Runner</b></p> </Col>
         <Col  style={{marginRight:'-55%'}}>
           <FontAwesomeIcon size="2x" icon={faClock}  style={{marginLeft:'11px'}}/>
           <p style={{fontSize:'13px'}}><b>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</b></p></Col>

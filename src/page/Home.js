@@ -71,7 +71,7 @@ const Home = props => {
         ):(
           
           data.expEvent.map((item, index)=>(
-            <Link to={`/home/${item.eventId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
+            <Link to={`/event/${item.eventId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
                <Col xs={12} md={4} style={{paddingTop:'50px'}}>
                 <Card style={{ width: '18rem' ,borderRadius:'25px',border:'10px',width:'320px',height:'250px',boxShadow:'5px 5px 5px grey'}} >
                   <Card.Img variant="top" style={{width:'100%',height:'150px',borderRadius:'25px 25px 0px 0px'}} src={`${item.banner}`} />

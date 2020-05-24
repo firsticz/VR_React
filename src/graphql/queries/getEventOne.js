@@ -11,6 +11,7 @@ query($eventId : Float){
       banner
       start_date
       end_date
+      member
     }
   }
 `
