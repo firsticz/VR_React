@@ -14,7 +14,7 @@ const Bar = (props) =>{
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href="/home" style={{color:'#000',fontSize:'18px'}}>Home</Nav.Link>
+        <Nav.Link href="/" style={{color:'#000',fontSize:'18px'}}>Home</Nav.Link>
         <Nav.Link href="/event" style={{color:'#000',fontSize:'18px'}}>Event</Nav.Link>
         <Nav.Link href="/group" style={{color:'#000',fontSize:'18px'}}>Group</Nav.Link>
         <Nav.Link href="/leaderboard" style={{color:'#000',fontSize:'18px'}}>Leaderboard</Nav.Link>

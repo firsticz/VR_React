@@ -14,12 +14,14 @@ import { faRunning ,faCircle} from '@fortawesome/free-solid-svg-icons'
 
 const Home = props => {
   const { data = { expEvent: [], nowevent: []}, loading } = useQuery(gethome)
-  //const { user } = useContext(AuthContext)
  
 
 
   return(
     <Container style={{marginLeft:'11%'}}>
+        <Link to={'/'}>
+         login
+        </Link>
 
      
       <div style={{marginTop:'30px'}}>

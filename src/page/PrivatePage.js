@@ -36,11 +36,11 @@ const PrivatePage = (props) => {
           <PrivateRoute path="/group/:id" component={GroupDetail} /> */}
           <PrivateRoute path="/group/:groupid" component={GroupDetail} />
           <PrivateRoute path="/group" component={Group} />
-          <PrivateRoute path="/home" component={Home} />
           <PrivateRoute path="/activity" component={Activity} />
           <PrivateRoute path="/event/:eventId" component={EventDetail} />
           <PrivateRoute path="/event" component={Event} />
           <PrivateAdminRoute path="/admin" component={Admin} />
+          <PrivateRoute path="/" component={Home} />
         </Switch>
     </div>
   )
