@@ -61,6 +61,11 @@ const  getFiles = async (files) => {
 if(loading ){
   return <p>loading</p>
 }
+if(!loading && status){
+  setNameTH(data.eventOne.NameTH)
+  setNameEN(data.eventOne.NameEN)
+  setStatus(false)
+}
 
   return(
     <Container>
@@ -75,12 +80,12 @@ if(loading ){
 
             <Form.Group controlId="username">
               <Form.Label>nameTH<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
-              <Form.Control value={data.eventOne.NameTH} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
+              <Form.Control value={nameTH} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>nameEN<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
-              <Form.Control value={data.eventOne.NameEN} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
+              <Form.Control value={nameEN} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
             </Form.Group>
             <Form.Group controlId="startDate">
               <Form.Label>startdate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
