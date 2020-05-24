@@ -6,21 +6,36 @@ import PrivateAdminRoute from '../../component/PrivateAdminRoute'
 import AuthContext from '../../context/AuthContext'
 import CreateEvent from './CreateEvent'
 import CreateGroup from './CreateGroup'
+import UpdateEvent from './UpdateEvent'
+import UpdateGroup from './UpdateGroup'
+
+
 
 const AdminPage = (props) => {
 
   return (
     <Container>
       <Link to={`/admin/createevent`}>
-        <Button>Create Event</Button>
+        <Button style={{backgroundColor:'red'}}>Create Event</Button>
       </Link>
       <Link to={`/admin/creategroup`} style={{marginLeft: '10px'}}>
-        <Button>Create Group</Button>
+        <Button style={{margin:'10px', backgroundColor:'red'}}>Create Group</Button>
+      </Link>
+      <Link to={`/admin/updateevent`}>
+        <Button style={{margin:'10px', backgroundColor:'green'}}>Update Event</Button>
+      </Link>
+      <Link to={`/admin/updategroup`} style={{marginLeft: '10px'}}>
+        <Button style={{backgroundColor:'green'}}>Update Group</Button>
       </Link>
 
       <Switch>
+        
         <PrivateAdminRoute path="/admin/createevent" component={CreateEvent} />
         <PrivateAdminRoute path="/admin/creategroup" component={CreateGroup} />
+        <PrivateAdminRoute path="/admin/updateevent" component={UpdateEvent}/>
+        <PrivateAdminRoute path="/admin/updategroup" component={UpdateGroup} />
+
+       
       </Switch>
     </Container>
   )

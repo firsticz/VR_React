@@ -6,6 +6,8 @@ import _ from 'lodash'
 import getlistmember from '../graphql/queries/getgroupmember'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRunning ,faCircle} from '@fortawesome/free-solid-svg-icons'
 
 const GroupDetail = (props) => {
     const { history } = props
@@ -45,7 +47,10 @@ const GroupDetail = (props) => {
 
 
     return (
-        <Container>
+        <Container style={{marginTop:'50px'}}>
+          <h1 style={{display:'inline',marginLeft:'35%'}}>Member</h1> 
+          {<FontAwesomeIcon 
+              style={{fontSize:'40px', marginTop:'38px',marginLeft:'1%',marginBottom:'-5px',display:'inline'}} icon={faRunning} />}
             {console.log(list)}
             <BootstrapTable 
              keyField='_id' 

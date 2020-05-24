@@ -10,6 +10,7 @@ import Group from './Group'
 import LeaderBoard from './LeaderBoard'
 import Activity from './Activity'
 import Event from './Event'
+import Home from './Home'
 import EventDetail from './EventDetail'
 import GroupDetail from './Group_detail'
 import Admin from './Admin/AdminPage'
@@ -35,7 +36,7 @@ const PrivatePage = (props) => {
           <PrivateRoute path="/group/:id" component={GroupDetail} /> */}
           <PrivateRoute path="/group/:groupid" component={GroupDetail} />
           <PrivateRoute path="/group" component={Group} />
-          
+          <PrivateRoute path="/home" component={Home} />
           <PrivateRoute path="/activity" component={Activity} />
           <PrivateRoute path="/event/:eventId" component={EventDetail} />
           <PrivateRoute path="/event" component={Event} />
