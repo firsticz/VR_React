@@ -8,6 +8,7 @@ import CreateEvent from './CreateEvent'
 import CreateGroup from './CreateGroup'
 import UpdateEvent from './UpdateEvent'
 import UpdateGroup from './UpdateGroup'
+import EventList from './EventList'
 
 
 
@@ -32,7 +33,8 @@ const AdminPage = (props) => {
         
         <PrivateAdminRoute path="/admin/createevent" component={CreateEvent} />
         <PrivateAdminRoute path="/admin/creategroup" component={CreateGroup} />
-        <PrivateAdminRoute path="/admin/updateevent" component={UpdateEvent}/>
+        <PrivateAdminRoute path="/admin/updateevent/:eventId" component={UpdateEvent}/>
+        <PrivateAdminRoute path="/admin/updateevent" component={EventList}/>
         <PrivateAdminRoute path="/admin/updategroup" component={UpdateGroup} />
 
        

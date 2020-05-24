@@ -6,12 +6,14 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 import UpdateEventMutation from '../../graphql/mutations/UpdateEvent'
-import getEventId from '../../graphql/queries/geteventId'
+import getEvent from '../../graphql/queries/getEventOne'
 
 import base64Img from 'base64-img'
 
 
 const UpdateEvent = (props) => {
+  const { history } = props
+  const { eventId } = props.match.params
   const [ status, setStatus ] = useState(true)
   const [ eventid, setEventid ] = useState(0)
   const [ nameTH, setNameTH ] = useState('')
@@ -19,7 +21,11 @@ const UpdateEvent = (props) => {
   const [ start_date, setStartDate ] = useState('')
   const [ end_date, setEndDate ] = useState('')
   const [updateEvent] = useMutation(UpdateEventMutation)
-  const { data = { eventOne: {}}, loading } = useQuery(getEventId)
+  const { data = { eventOne: {}}, loading } = useQuery(getEvent,{
+    variables: {
+      eventId: Number(eventId),
+    }
+  })
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState('');
   const [ file, setFile ] = useState([])
@@ -39,10 +45,7 @@ const UpdateEvent = (props) => {
     }
     
   }
-  if(!loading && status){
-    setEventid(Number(data.eventOne.eventId + 1))
-    setStatus(false)
-  }
+
 
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -55,6 +58,10 @@ const  getFiles = async (files) => {
   setBanner(`${result}`)
 }
 
+if(loading ){
+  return <p>loading</p>
+}
+
   return(
     <Container>
       <Row className="justify-content-md-center">
@@ -63,17 +70,17 @@ const  getFiles = async (files) => {
           <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>EventID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
-              <Form.Control value={Number(data.eventOne.eventId + 1)} disabled type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(Number(data.eventOne.eventId + 1)) } } />
+              <Form.Control value={Number(data.eventOne.eventId)} disabled type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(Number(data.eventOne.eventId)) } } />
             </Form.Group>
 
             <Form.Group controlId="username">
               <Form.Label>nameTH<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
-              <Form.Control type="text" placeholder="eventNameTH" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
+              <Form.Control value={data.eventOne.NameTH} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>nameEN<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
-              <Form.Control type="text" placeholder="eventNameEN" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
+              <Form.Control value={data.eventOne.NameEN} type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
             </Form.Group>
             <Form.Group controlId="startDate">
               <Form.Label>startdate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
@@ -108,7 +115,6 @@ const  getFiles = async (files) => {
 
             <Button variant="primary" type="submit" style={{width:'100%'}}
               onClick={async (e) => {
-                setEventid(Number(data.eventOne.eventId + 1))
               
                 e.preventDefault()
                 if(nameTH ===('') && nameEN ===('') && start_date===('') && end_date===('')){
@@ -123,7 +129,7 @@ const  getFiles = async (files) => {
                   try {
                     await updateEvent({
                       variables: {
-                        id: Number(eventid),
+                        id: Number(eventId),
                         nameTH: nameTH,
                         nameEN: nameEN,
                         start_date: start_date,
