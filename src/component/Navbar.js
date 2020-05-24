@@ -5,7 +5,7 @@ import { OverlayTrigger } from 'react-bootstrap'
 import renderTooltip from './tooltip'
 function removetoken(){
   localStorage.clear();
-  window.location.href = '/';
+  window.location.href = '/home';
 }
 const Bar = (props) =>{
   return (
