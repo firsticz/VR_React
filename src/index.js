@@ -16,6 +16,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from './page/Login'
 import setPassword from './page/EditPassword'
+import Home from './page/Home'
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import { AuthProvider, checkTokenExpired } from './context/AuthContext'
@@ -43,6 +44,7 @@ ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <Switch>
+       <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/callback" component={setPassword} />
  			  {/* <Route path="/" component={App} /> */}

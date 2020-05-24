@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 
 import PrivatePage from './page/PrivatePage'
 import LoginPage from './page/Login'
+import Home from './page/Home'
 import AuthContext from './context/AuthContext'
 
 const App = () => {

@@ -20,6 +20,9 @@ const Home = props => {
 
   return(
     <Container style={{marginLeft:'11%'}}>
+      <Link to={'/'}>
+        login
+      </Link>
       <div style={{marginTop:'30px'}}>
                 <p style={{fontSize:"30px",fontFamily:'NameTH',marginLeft:'36%',display:'inline',fontWeight:'bold'}}>งานวิ่งทั้งหมด</p>
                 {<FontAwesomeIcon 
