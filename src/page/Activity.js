@@ -33,6 +33,7 @@ const Activity = (props) => {
     setShowLoading(false);
   },[])
   return(
+    <div style={{backgroundColor:'#afeeee',paddingBottom:'10%'}}>
     <Container>
       {/* <div>
         {loading?(
@@ -93,6 +94,7 @@ const Activity = (props) => {
       </VerticalTimeline>
       </div>
     </Container>
+    </div>
   )
 }
 

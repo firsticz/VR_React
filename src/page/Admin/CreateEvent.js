@@ -56,27 +56,28 @@ const  getFiles = async (files) => {
 }
 
   return(
-    <Container>
+    <div style={{paddingBottom:'10%'}}>
+    <Container >
       <Row className="justify-content-md-center">
         <Col md="auto">
           <div style={{marginTop:'40%'}}>
-          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
+          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px',marginTop:'-120px',padding:'30px',boxShadow:'1px 4px 10px 10px blue'}}>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>EventID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>EventID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control value={Number(data.eventOne.eventId + 1)} disabled type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(Number(data.eventOne.eventId + 1)) } } />
             </Form.Group>
 
             <Form.Group controlId="username">
-              <Form.Label>nameTH<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>nameTH<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" placeholder="eventNameTH" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameTH(x.currentTarget.value) } }  />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>nameEN<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>nameEN<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" placeholder="eventNameEN" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setNameEN(x.currentTarget.value) } } />
             </Form.Group>
             <Form.Group controlId="startDate">
-              <Form.Label>startdate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>startdate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <DatePicker
                 selected={ start_date }
                 onChange={ handleStartChange }
@@ -88,7 +89,7 @@ const  getFiles = async (files) => {
             </Form.Group>
 
             <Form.Group controlId="endDate">
-              <Form.Label>enddate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>enddate<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <DatePicker
                 selected={ end_date }
                 onChange={ handleEndChange }
@@ -100,7 +101,7 @@ const  getFiles = async (files) => {
               />
             </Form.Group>
             <Form.Group controlId="endDate">
-              <Form.Label>file<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
+              <Form.Label style={{fontWeight:'bold'}}>file<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="file" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { getFiles(x.currentTarget.files[0]) } } />
             </Form.Group>
 
@@ -160,6 +161,7 @@ const  getFiles = async (files) => {
         </Col>
       </Row>
     </Container>
+    </div>
   )
 }
 

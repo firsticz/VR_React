@@ -22,7 +22,9 @@ const Event = props => {
 
 
   return(
-    <Container style={{marginLeft:'15%'}}>
+    <div style={{backgroundColor:'#afeeee',paddingBottom:'10%'}}>
+    <Container style={{marginLeft:'11%'}}>
+      <h1 style={{paddingTop:'50px',marginLeft:'36%'}}>... My Event ...</h1>
       <Row>
         {loading?(
           <Spinner animation="border" role="status">
@@ -51,6 +53,7 @@ const Event = props => {
       </Row>
 
     </Container>
+    </div>
   )
 
 }

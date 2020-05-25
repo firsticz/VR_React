@@ -68,11 +68,12 @@ if(!loading && status){
 }
 
   return(
-    <Container>
-      <Row className="justify-content-md-center">
+    <div >
+    <Container style={{backgroundColor:'#fff',paddingBottom:'5%'}}>
+      <Row className="justify-content-md-center" >
         <Col md="auto">
           <div style={{marginTop:'40%'}}>
-          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
+          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px',padding:'30px',boxShadow:'1px 4px 10px 10px Orange'}}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>EventID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control value={Number(data.eventOne.eventId)} disabled type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setEventid(Number(data.eventOne.eventId)) } } />
@@ -171,6 +172,7 @@ if(!loading && status){
         </Col>
       </Row>
     </Container>
+    </div>
   )
 }
 

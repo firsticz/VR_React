@@ -88,7 +88,7 @@ const EventDetail = props => {
   }
   const customtotal = (cell, row) => {
     return (
-    <p>{Number(_.sumBy(cell,'distance') / 1000).toFixed(2)}</p>
+    <p >{Number(_.sumBy(cell,'distance') / 1000).toFixed(2)}</p>
     )
   }
   const customtime = (cell, row) => {
@@ -277,20 +277,20 @@ const calrunner =(member) => {
     console.log(allmember.length)
     return allmember.length
   }
+
+  const calbetweenDate = (enddate) =>{
+    const end = moment(enddate).format('YYYY/MM/DD')
+    const today = moment()
+    return Math.abs(today.diff(end, 'days')) + 1 
+  }
   
   return (
-    <Container>
-        {data2.eventOne.member.find(ele => Number(ele) === user.id) === undefined ?(
-          <Button 
-            onClick={handleShow} 
-            variant="primary" 
-            disabled={data2.eventOne.member.find(ele => Number(ele) === user.id) !== undefined && moment(data.eventOne.end_date).format('YYYY/MM/DD') < moment().format('YYYY/MM/DD')}
-          >Join Now</Button>
-        ):(
-          null
-        )}
+    <div style={{paddingTop:'2%'}}>
+      <Container>
        
-       <div style={{width:'100%'}}>
+       <h1 style={{marginLeft:'40%',Top:'25%',display:'inline',borderBottom:'5px  solid orange',marginTop:'10%'}}>{data2.eventOne.NameTH}</h1>
+       
+       <div style={{width:'100%',display:'inline'}}>
        <div  style={{float:"right", marginTop:'2%'}}>
       <FontAwesomeIcon size="1x" icon={faCircle} color="green"/>
         <b><p style={{display:'inline',marginLeft:'10px',marginRight:'30px'}}>start: {moment(data.eventOne.start_date).format('YYYY/MM/DD')}</p></b>
@@ -298,20 +298,48 @@ const calrunner =(member) => {
         <b><p style={{display:'inline',marginLeft:'10px'}}>end: {moment(data.eventOne.end_date).format('YYYY/MM/DD')}</p></b>
       </div>
        </div>
-     
-      <Row  style={{paddingTop:'20px',marginBottom:'-20px',width:'100%'}}>
-        <Col  style={{height: '100px',marginRight:'-55%'}}>
+       <div style={{marginLeft:'70%'}}>
+      <FontAwesomeIcon size="2x" icon={faClock}  style={{color:'red',paddingRight:'8px',paddingTop:'5px'}}/>
+          <p style={{fontWeight:'bold',paddingRight:'6px',paddingTop:'3px',color:'red',fontSize:'20px',display:'inline'}}>Time remaining</p>
+          <p style={{fontWeight:'bold',color:'red',fontSize:'25px',marginTop:'-3px',display:'inline'}}>
+            {calbetweenDate(data2.eventOne.end_date)}</p>
+            <p style={{fontWeight:'bold',paddingLeft:'6px',paddingTop:'3px',color:'red',fontSize:'20px',display:'inline'}}>Day</p> 
+          
+      </div>
+      <Row  style={{paddingTop:'20px',marginBottom:'-20px',width:'100%',marginTop:'-10%'}}>
+        <Col  style={{height: '100px',marginRight:'-50%'}}>
           <FontAwesomeIcon size="2x" icon={faRunning}  style={{marginLeft:'15px'}}/>
           <p style={{fontSize:'13px'}}><b>{calrunner(data2.eventOne.member)}Runner</b></p> </Col>
-        <Col  style={{marginRight:'-55%'}}>
-          <FontAwesomeIcon size="2x" icon={faClock}  style={{marginLeft:'11px'}}/>
-          <p style={{fontSize:'13px'}}><b>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</b></p></Col>
+        <Col  style={{marginRight:'-50%'}}>
+          <FontAwesomeIcon size="2x" icon={faClock}  style={{marginLeft:'30px'}}/>
+          <p style={{fontSize:'13px',marginLeft:'23px'}}><b>{calDate(data.eventOne.end_date, data.eventOne.start_date)} Day</b></p></Col>
         <Col>
-          <FontAwesomeIcon size="2x" icon={faRoad}  style={{marginLeft:'8px'}}/>
-          <p style={{fontSize:'13px'}}><b>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</b></p></Col>
+          <FontAwesomeIcon size="2x" icon={faRoad}  style={{marginLeft:'45px'}}/>
+          <p style={{fontSize:'13px',marginLeft:'40px'}}><b>{(calTotalDistance(data.activityhasevent) / 1000).toFixed(2)} km.</b></p></Col>
+          <Col  style={{marginRight:'-50%'}}>
+         
+          </Col>
+    
+          
+          
+
+         
+            
       </Row>
+      
+      {data2.eventOne.member.find(ele => Number(ele) === user.id) === undefined ?(
+          <Button style={{float:'right',fontWeight:'bold'}}
+            onClick={handleShow} 
+            variant="primary" 
+            disabled=
+            {data2.eventOne.member.find(ele => Number(ele) === user.id) !== undefined && moment(data.eventOne.end_date).format('YYYY/MM/DD') < moment(new Date()).format('YYYY/MM/DD')}
+          >Join Now</Button>
+        ):(
+          null
+        )}
 
        <Tabs
+       style={{fontWeight:'bold'}}
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}
@@ -368,6 +396,7 @@ const calrunner =(member) => {
         </Modal.Footer>
       </Modal>
     </Container>
+    </div>
   )
 }
 

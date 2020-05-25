@@ -83,6 +83,7 @@ const EventList =() => {
             </Spinner>
           ):(
             <BootstrapTable 
+           
               keyField='_id' 
               data={ data.eventMany } 
               columns={ columns } 

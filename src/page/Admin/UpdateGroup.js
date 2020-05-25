@@ -15,7 +15,7 @@ const UpdateGroup = (props) => {
       <Row className="justify-content-md-center">
         <Col md="auto">
           <div style={{marginTop:'40%'}}>
-          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px'}}>
+          <Form style={{backgroundColor:'rgb(64, 64, 64, 0.5)', padding:'30px',padding:'30px',boxShadow:'1px 4px 10px 10px blue'}}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>GroupID<font color='red' style={{padding:'5px'}} >*</font></Form.Label>
               <Form.Control type="text" onChange={ (x: React.FormEvent<FormControl & HTMLInputElement>) => { setGroupid(x.currentTarget.value) } } />

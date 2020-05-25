@@ -44,18 +44,19 @@ const Login = (props) => {
   // }
 
   return (
-    <Container>
+    <div style={{backgroundColor:'#66CCFF'}}>
+  <Container>
       
       <Row className="justify-content-md-center">
-        <Col md="auto">
-          <div style={{marginTop:'50%'}}>
-          <Form style={{backgroundColor:'#404040',padding:'30px'}}>
+        <Col md="auto" style={{marginBottom:'20%'}}>
+          <div style={{marginTop:'30%',width:'350px'}}>
+          <Form style={{backgroundColor:'#404040',padding:'30px',boxShadow:'1px 4px 10px 10px Orange'}}>
             <div>  
               <a href={`${process.env.REACT_APP_AUTH_URL}`} class="button" >
                   <img alt="connect" src="/images/stravaconnect.png"  style={{width:'100%'}}/>
               </a>
             </div>
-            <div style={{color:'#f9a11e'}}>————— or ——————</div>
+            <div style={{color:'#f9a11e',fontWeight:'bold'}}>———————— or ————————</div>
         
             <Form.Group controlId="formBasicEmail">
          
@@ -91,6 +92,8 @@ const Login = (props) => {
       </Row>
       
     </Container>
+    </div>
+  
   )
 }
 Login.propTypes = {

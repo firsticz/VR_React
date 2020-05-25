@@ -18,18 +18,28 @@ const Home = props => {
 
 
   return(
-    <Container style={{marginLeft:'11%'}}>
-        <Link to={'/'}>
-         login
+    <div style={{backgroundColor:'#ffbb00'}}>
+      <Container style={{marginLeft:'11%'}}>
+        <Link to={'/'} >
+          
+            <p 
+            style={{color:'#fff',backgroundColor:'#000',
+            display:'inline',width:'100px',height:'80px',
+            padding:'20px',fontWeight:'bold',fontSize:'25px'
+            ,float:'right',display:'inline',margin:'0px'}}>
+              Login</p> 
+        
+      
         </Link>
 
      
-      <div style={{marginTop:'30px'}}>
-                <p style={{fontSize:"30px",fontFamily:'NameTH',marginLeft:'36%',display:'inline',fontWeight:'bold'}}>งานวิ่งทั้งหมด</p>
+      <div style={{paddingTop:'5%'}}>
+                <p style={{fontSize:"40px",fontFamily:'NameTH',
+                marginLeft:'34%',display:'inline',fontWeight:'bold',paddingTop:'500px'}}>งานวิ่งทั้งหมด</p>
                 {<FontAwesomeIcon 
                     style={{fontSize:'40px', marginTop:'40px',marginLeft:'1%',marginBottom:'-5px'}} icon={faRunning} />}
-                  <div style={{width:'192px',backgroundColor:'#ffa500',height:'5px',marginLeft:'36%',marginTop:'-2px'}}></div>
-                        </div>
+                  <div style={{width:'260px',backgroundColor:'#000',height:'5px',marginLeft:'34%',marginTop:'-3px',color:'#fff'}}></div>
+      </div>
        <Row >
         {loading?(
           <Spinner animation="border" role="status">
@@ -60,10 +70,12 @@ const Home = props => {
         
       </Row>
       <div style={{marginTop:'30px'}}>
-                <p style={{fontSize:"30px",fontFamily:'NameTH',marginLeft:'32%',display:'inline',fontWeight:'bold'}}>งานวิ่งที่ปิดรับสมัคร</p>
+                <p style={{fontSize:"40px",fontFamily:'NameTH',
+                marginLeft:'32%',display:'inline',fontWeight:'bold'}}>
+                  งานวิ่งที่ปิดรับสมัคร</p>
                 {<FontAwesomeIcon 
                     style={{fontSize:'40px', marginTop:'40px',marginLeft:'1%',marginBottom:'-5px'}} icon={faRunning} />}
-                  <div style={{width:'264px',backgroundColor:'#ffa500',height:'5px',marginLeft:'32%',marginTop:'-2px'}}></div>
+                  <div style={{width:'354px',backgroundColor:'#000',height:'5px',marginLeft:'32%',marginTop:'-2px'}}></div>
       </div>
       <Row>
         {loading?(
@@ -74,7 +86,7 @@ const Home = props => {
           
           data.expEvent.map((item, index)=>(
             <Link to={`/home/${item.eventId}`} style={{ textDecoration: 'none', color:'inherit' }} key={index}>
-               <Col xs={12} md={4} style={{paddingTop:'50px'}}>
+               <Col xs={12} md={4} style={{paddingTop:'50px',marginBottom:'20%'}}>
                 <Card style={{ width: '18rem' ,borderRadius:'25px',border:'10px',width:'320px',height:'250px',boxShadow:'5px 5px 5px grey'}} >
                   <Card.Img variant="top" style={{width:'100%',height:'150px',borderRadius:'25px 25px 0px 0px'}} src={`${item.banner}`} />
                   <Card.Body>
@@ -94,6 +106,7 @@ const Home = props => {
       </Row>
 
     </Container>
+    </div>
   )
 
 }

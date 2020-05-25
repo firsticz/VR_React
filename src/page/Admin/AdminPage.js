@@ -15,6 +15,7 @@ import EventList from './EventList'
 const AdminPage = (props) => {
 
   return (
+    <div style={{backgroundColor:'#fff',paddingBottom:'40%'}}>
     <Container>
       <Link to={`/admin/createevent`}>
         <Button style={{backgroundColor:'red'}}>Create Event</Button>
@@ -40,6 +41,7 @@ const AdminPage = (props) => {
        
       </Switch>
     </Container>
+    </div>
   )
 }
 

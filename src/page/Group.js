@@ -14,7 +14,8 @@ const Group = () => {
   // },[])
 
   return(
-    <Container style={{marginLeft:'15%'}}>
+    <div style={{backgroundColor:'#afeeee',paddingBottom:'20%'}}>
+    <Container style={{marginLeft:'11%'}}>
       <Row>
         {loading?(
           <Spinner animation="border" role="status">
@@ -42,6 +43,7 @@ const Group = () => {
         
       </Row>
     </Container>
+    </div>
   )
 
 }
