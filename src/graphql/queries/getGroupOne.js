@@ -5,7 +5,7 @@ query($groupId : Float){
     groupOne(filter:{
       groupId: $groupId
     }){
-        groupId
+      groupId
       NameTH
       NameEN
       banner
