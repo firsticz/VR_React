@@ -62,22 +62,22 @@ const Activity = (props) => {
           </Table>
         )}
       </div> */}
-      <div>
+      <div >
       <VerticalTimeline>
         {
           loading?(
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
+            <Spinner animation="border" role="status" >
+              <span className="sr-only" >Loading...</span>
             </Spinner>
           ):(
             data.getActivity.map((item, index)=>(
-              <VerticalTimelineElement
+              <VerticalTimelineElement 
                 key={index}
                 className="vertical-timeline-element--work"
                 contentStyle={{ background: handleColor(Number(item.distance / 1000 )), color: '#000' }}
                 contentArrowStyle={{ borderRight: '7px solid var(handleColor(Number(item.distance / 1000 )))' }}
                 date={moment(item.start_date).format('MM/DD/YYYY, h:mm:ss a')}
-                iconStyle={{ background: handleColor(Number(item.distance / 1000 )), color: '#fff' }}
+                iconiconStyle={{ background: handleColor(Number(item.distance / 1000 )), color: '#fff' }}
                 icon={<FontAwesomeIcon icon={faRunning} />}
               >
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>

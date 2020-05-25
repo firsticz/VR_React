@@ -122,7 +122,7 @@ const LeaderBoard = (props) => {
 
  
   return (
-      <Container>
+      <Container style={{marginTop:'70px'}}>
         <div>
           {loading?(
             <Spinner animation="border" role="status">
