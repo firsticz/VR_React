@@ -131,7 +131,7 @@ const EventDetail = props => {
     }
   }, {
     dataField: 'activities',
-    text: 'distance (Km)',
+    text: 'Distance (Km)',
     sort: true,
     headerStyle: {
       backgroundColor: 'rgb(255, 165, 0)'
@@ -166,7 +166,7 @@ const columns2 = [{
   }
 },{
   dataField: 'activity',
-  text: 'distance',
+  text: 'Distance(km.)',
   sort: true,
   headerStyle: {
     backgroundColor: 'rgb(255, 165, 0)'

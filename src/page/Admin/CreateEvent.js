@@ -112,7 +112,7 @@ const  getFiles = async (files) => {
                 setEventid(Number(data.eventOne.eventId + 1))
               
                 e.preventDefault()
-                if(nameTH ===('') && nameEN ===('') && start_date===('') && end_date===('')){
+                if(nameTH ===('') && nameEN ===('') && start_date===('') && end_date===('') && banner===('')){
                   setMessage('Please Enter again')
                   setShow(true)
                  

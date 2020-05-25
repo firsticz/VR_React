@@ -35,10 +35,10 @@ const Home = props => {
      
       <div style={{paddingTop:'5%'}}>
                 <p style={{fontSize:"40px",fontFamily:'NameTH',
-                marginLeft:'34%',display:'inline',fontWeight:'bold',paddingTop:'500px'}}>งานวิ่งทั้งหมด</p>
+                marginLeft:'34%',display:'inline',fontWeight:'bold',paddingTop:'500px'}}>งานวิ่งที่เปิดรับสมัคร</p>
                 {<FontAwesomeIcon 
                     style={{fontSize:'40px', marginTop:'40px',marginLeft:'1%',marginBottom:'-5px'}} icon={faRunning} />}
-                  <div style={{width:'260px',backgroundColor:'#000',height:'5px',marginLeft:'34%',marginTop:'-3px',color:'#fff'}}></div>
+                  <div style={{width:'360px',backgroundColor:'#000',height:'5px',marginLeft:'34%',marginTop:'-3px',color:'#fff'}}></div>
       </div>
        <Row >
         {loading?(

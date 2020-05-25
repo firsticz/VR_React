@@ -24,10 +24,10 @@ const Home = props => {
 
      
 <div style={{marginTop:'30px'}}>
-          <p style={{fontSize:"30px",fontFamily:'NameTH',marginLeft:'36%',display:'inline',fontWeight:'bold'}}>งานวิ่งทั้งหมด</p>
+          <p style={{fontSize:"30px",fontFamily:'NameTH',marginLeft:'36%',display:'inline',fontWeight:'bold'}}>งานวิ่งที่เปิดรับสมัคร</p>
           {<FontAwesomeIcon 
               style={{fontSize:'40px', marginTop:'40px',marginLeft:'1%',marginBottom:'-5px'}} icon={faRunning} />}
-            <div style={{width:'192px',backgroundColor:'#ffa500',height:'5px',marginLeft:'36%',marginTop:'-2px'}}></div>
+            <div style={{width:'280px',backgroundColor:'#ffa500',height:'5px',marginLeft:'36%',marginTop:'-2px'}}></div>
                   </div>
  <Row>
   {loading?(
